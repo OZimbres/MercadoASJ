@@ -132,9 +132,10 @@ public class PainelClientes extends JPanel {
 
                 ClientesControl clientesControl = new ClientesControl(clientes, tableModel, table);
 
-                clientesControl.deleteCliente(linhaSelecionada, Long.valueOf(cpf));
-                clienteInfo.setText("Índice | CPF: | Nome: ");
-                atualizarTabela();
+                if(clientesControl.checkClienteCampos(-1, "deletar", cpf, "", "", "", "", "")){
+                    clienteInfo.setText("Índice | CPF: | Nome: ");
+                    atualizarTabela();
+                }
             }
         });
     }
