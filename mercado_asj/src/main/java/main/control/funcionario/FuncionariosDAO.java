@@ -35,7 +35,7 @@ public class FuncionariosDAO {
 
             // Loop para armazenar as informações do resultSet para a List<Funcionario>
             while(resultSet.next()){
-                Funcionario funcionario = new Funcionario(resultSet.getLong("cpf_funcionario"), resultSet.getString("nome_funcionario"), resultSet.getLong("telefone_funcionario"), resultSet.getString("rua_funcionario"), resultSet.getString("numero_rua_funcionario"), resultSet.getInt("cep_funcionario"), resultSet.getString("senha"), resultSet.getString("nivel_acesso_funcionario")); // Instanciando Funcionario com as informações obtidas pela query
+                Funcionario funcionario = new Funcionario(resultSet.getLong("cpf_funcionario"), resultSet.getString("nome_funcionario"), resultSet.getLong("telefone_funcionario"), resultSet.getString("rua_funcionario"), resultSet.getString("numero_rua_funcionario"), resultSet.getInt("cep_funcionario"), resultSet.getString("senha_funcionario"), resultSet.getString("nivel_acesso_funcionario")); // Instanciando Funcionario com as informações obtidas pela query
 
                 funcionarios.add(funcionario); // Adicionando objetos instanciados à lista
             }
@@ -66,7 +66,7 @@ public class FuncionariosDAO {
             // Loop para armazenar as informações do resultSet para a List<Funcionario>
 
             if(resultSet.next()){
-                funcionario = new Funcionario(resultSet.getLong("cpf_funcionario"), resultSet.getString("nome_funcionario"), resultSet.getLong("telefone_funcionario"), resultSet.getString("rua_funcionario"), resultSet.getString("numero_rua_funcionario"), resultSet.getInt("cep_funcionario"), resultSet.getString("senha"), resultSet.getString("nivel_acesso_funcionario")); // Instanciando Funcionario com as informações obtidas pela query
+                funcionario = new Funcionario(resultSet.getLong("cpf_funcionario"), resultSet.getString("nome_funcionario"), resultSet.getLong("telefone_funcionario"), resultSet.getString("rua_funcionario"), resultSet.getString("numero_rua_funcionario"), resultSet.getInt("cep_funcionario"), resultSet.getString("senha_funcionario"), resultSet.getString("nivel_acesso_funcionario")); // Instanciando Funcionario com as informações obtidas pela query
 
                 return funcionario;
             }
@@ -85,7 +85,7 @@ public class FuncionariosDAO {
 
     //---=| CREATE |=---//
     public void create(Long cpfFuncionario, String nomeFuncionario, Long telefoneFuncionario, String ruaFuncionario, String numeroFuncionario, Integer cepFuncionario, String senhaFuncionario, String nivelAcessoFuncionario) throws SQLException {
-        String query = "INSERT INTO funcionarios (cpf_funcionario, nome_funcionario, telefone_funcionario, rua_funcionario, numero_rua_funcionario, cep_funcionario, senha, nivel_acesso_funcionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO funcionarios (cpf_funcionario, nome_funcionario, telefone_funcionario, rua_funcionario, numero_rua_funcionario, cep_funcionario, senha_funcionario, nivel_acesso_funcionario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
@@ -113,7 +113,7 @@ public class FuncionariosDAO {
 
     //---=| UPDATE |=---//
     public void update(Long cpfFuncionario, String nomeFuncionario, Long telefoneFuncionario, String ruaFuncionario, String numeroFuncionario, Integer cepFuncionario, String senhaFuncionario, String nivelAcessoFuncionario) throws SQLException {
-        String query = "UPDATE funcionarios SET nome_funcionario = ?, telefone_funcionario = ?, rua_funcionario = ?, numero_rua_funcionario = ?, cep_funcionario = ?, senha = ?, nivel_acesso_funcionario = ? WHERE cpf_funcionario = ?";
+        String query = "UPDATE funcionarios SET nome_funcionario = ?, telefone_funcionario = ?, rua_funcionario = ?, numero_rua_funcionario = ?, cep_funcionario = ?, senha_funcionario = ?, nivel_acesso_funcionario = ? WHERE cpf_funcionario = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
