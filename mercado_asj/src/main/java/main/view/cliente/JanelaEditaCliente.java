@@ -22,14 +22,14 @@ import javax.swing.table.DefaultTableModel;
 
 import main.control.cliente.ClientesControl;
 
-public class JanelaCadastroCliente extends JDialog {
+public class JanelaEditaCliente extends JDialog {
     //-----===| ATRIBUTOS |===-----//
     // Criando componentes
     private JPanel mainPanel = new JPanel();
 
-    //---=| Cadastro |=---//
-    // Título Cadastro
-    private JLabel tituloCadastro = new JLabel("Cadastro de Cliente");
+    //---=| Edita |=---//
+    // Título EditaCliente
+    private JLabel tituloEdita = new JLabel("Edição de Cliente");
 
     // Cliente CPF
     private JLabel cpfLabel = new JLabel("CPF:");
@@ -56,7 +56,7 @@ public class JanelaCadastroCliente extends JDialog {
     private JTextField cepInput = new JTextField(20);
 
     // Botão Cadastrar/Cancelar
-    private JButton buttonCadastrar = new JButton("Cadastrar");
+    private JButton buttonEditar = new JButton("Editar");
     private JButton buttonCancelar = new JButton("Cancelar");
 
     private ClientesControl clientesControl;
@@ -65,7 +65,7 @@ public class JanelaCadastroCliente extends JDialog {
     ArrayList<JComponent> componentes = new ArrayList<JComponent>(){
         {
             //-=| Título |=-//
-            add(tituloCadastro);
+            add(tituloEdita);
 
             //-=| Campos |=-//
             // CPF
@@ -88,7 +88,7 @@ public class JanelaCadastroCliente extends JDialog {
             add(cepInput);
 
             //-=| Botões |=-//
-            add(buttonCadastrar);
+            add(buttonEditar);
             add(buttonCancelar);
         }
     };
@@ -96,7 +96,7 @@ public class JanelaCadastroCliente extends JDialog {
     Insets insets; // Chamando insets para estilização do GridBaglayout
 
     //-----===| CONSTRUTOR |===-----///
-    public JanelaCadastroCliente(JPanel parent, List<main.model.Cliente> clientes, DefaultTableModel tableModel, JTable table){
+    public JanelaEditaCliente(JPanel parent, List<main.model.Cliente> clientes, DefaultTableModel tableModel, JTable table, int linhaSelecionada, String cpf, String nome, String telefone, String rua, String numero, String cep){
         super((JFrame) SwingUtilities.getWindowAncestor(parent), "Cadastrar Cliente", true);
         // Adicionando mainPanel ao JFrame
         this.add(mainPanel);
@@ -105,6 +105,13 @@ public class JanelaCadastroCliente extends JDialog {
 
         // Criando a tela
         JPanel cadastrar = criarCadastrar(clientes, tableModel, table);
+        // Atribuindo valores pegos aos inputs
+        cpfInput.setText(cpf);
+        nomeInput.setText(nome);
+        telefoneInput.setText(telefone);
+        ruaInput.setText(rua);
+        numeroInput.setText(numero);
+        cepInput.setText(cep);
 
         // Adicionando tela ao Painel de telas
         mainPanel.add(cadastrar);
@@ -180,7 +187,7 @@ public class JanelaCadastroCliente extends JDialog {
 
         //---=| Tratamento de Evento |=---//
         // Botão cadastrar
-        buttonCadastrar.addActionListener(e ->{
+        buttonEditar.addActionListener(e ->{
             clientesControl = new ClientesControl(clientes, tableModel, table);
 
             if(clientesControl.checkClienteCampos(-1, "cadastrar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
@@ -197,7 +204,7 @@ public class JanelaCadastroCliente extends JDialog {
         });
         // Botão cancelar
         buttonCancelar.addActionListener(e -> {
-            int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Cadastro?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
                 // "Resetando" campos
                 cpfInput.setText("");

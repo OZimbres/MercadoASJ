@@ -5,10 +5,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -77,9 +80,36 @@ public class PainelClientes extends JPanel {
             }
         });
         buttonCadastrar.addActionListener(e ->{
-            JanelaCadastroCliente janelaCadastrar = new JanelaCadastroCliente(clientes, tableModel, table);
-            janelaCadastrar.run();
+            JanelaCadastroCliente janelaCadastrar = new JanelaCadastroCliente(this, clientes, tableModel, table);
+            janelaCadastrar.setVisible(true);
             atualizarTabela();
+        });
+        buttonEditar.addActionListener(e ->{
+            // Vou pegar a linha selecionada a partir do "ìndice" no cliente Info (usando regex)
+            // Padrão Regex para pedar a linha selecionada
+            Pattern pattern = Pattern.compile("Índice (-?\\d+)\\s*\\|");
+
+            // Criando um Matcher que corresponde ao padrão na entrada
+            Matcher matcher = pattern.matcher(clienteInfo.getText());
+            if(matcher.find()){
+                linhaSelecionada = Integer.valueOf(matcher.group(1));
+            }
+            
+            if(linhaSelecionada == -1){
+                JOptionPane.showMessageDialog(this, "É necessário selecionar algum cliente!");
+            } else{
+                // Variáveis temporárias
+                String cpf = String.valueOf(table.getValueAt(linhaSelecionada, 0));
+                String nome = String.valueOf(table.getValueAt(linhaSelecionada, 1));
+                String telefone = String.valueOf(table.getValueAt(linhaSelecionada, 2));
+                String rua = String.valueOf(table.getValueAt(linhaSelecionada, 3));
+                String numero = String.valueOf(table.getValueAt(linhaSelecionada, 4));
+                String cep = String.valueOf(table.getValueAt(linhaSelecionada, 5));
+
+                JanelaEditaCliente janelaEdita = new JanelaEditaCliente(this, clientes, tableModel, table, linhaSelecionada, cpf, nome, telefone, rua, numero, cep);
+                janelaEdita.setVisible(true);
+                atualizarTabela();
+            }
         });
     }
 
@@ -92,10 +122,10 @@ public class PainelClientes extends JPanel {
             for (int i = 0; i < clientes.size(); i++) {
                 linha[0] = clientes.get(i).getCpfCliente();
                 linha[1] = clientes.get(i).getNomeCliente();
-                linha[2] = clientes.get(i).getTelefoneCliente();
+                linha[2] = (clientes.get(i).getTelefoneCliente() == 0) ? "" : clientes.get(i).getTelefoneCliente();
                 linha[3] = clientes.get(i).getRuaCliente();
                 linha[4] = clientes.get(i).getNumeroCliente();
-                linha[5] = clientes.get(i).getCepCliente();
+                linha[5] = (clientes.get(i).getCepCliente() == 0) ? "" : clientes.get(i).getCepCliente();
                 tableModel.addRow(linha);
             }
         } catch (SQLException e) {
