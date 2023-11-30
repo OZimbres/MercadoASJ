@@ -82,6 +82,7 @@ public class PainelClientes extends JPanel {
         buttonCadastrar.addActionListener(e ->{
             JanelaCadastroCliente janelaCadastrar = new JanelaCadastroCliente(this, clientes, tableModel, table);
             janelaCadastrar.setVisible(true);
+            clienteInfo.setText("Índice | CPF: | Nome: ");
             atualizarTabela();
         });
         buttonEditar.addActionListener(e ->{
@@ -108,6 +109,7 @@ public class PainelClientes extends JPanel {
 
                 JanelaEditaCliente janelaEdita = new JanelaEditaCliente(this, clientes, tableModel, table, linhaSelecionada, cpf, nome, telefone, rua, numero, cep);
                 janelaEdita.setVisible(true);
+                clienteInfo.setText("Índice | CPF: | Nome: ");
                 atualizarTabela();
             }
         });
@@ -131,7 +133,7 @@ public class PainelClientes extends JPanel {
                 ClientesControl clientesControl = new ClientesControl(clientes, tableModel, table);
 
                 clientesControl.deleteCliente(linhaSelecionada, Long.valueOf(cpf));
-                
+                clienteInfo.setText("Índice | CPF: | Nome: ");
                 atualizarTabela();
             }
         });
