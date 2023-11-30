@@ -125,6 +125,9 @@ public class JanelaCadastroFuncionario extends JDialog {
         // Adicionando tela ao Painel de telas
         mainPanel.add(cadastrar);
 
+        nivelAcessoComboBox.addItem("Operador");
+        nivelAcessoComboBox.addItem("Gerente");
+
         //---=| Setando o Frame |=---//
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(500, 600);

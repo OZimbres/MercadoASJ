@@ -117,6 +117,11 @@ public class JanelaEditaFuncionario extends JDialog {
         // Setando layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
+        nivelAcessoComboBox.addItem("Operador");
+        nivelAcessoComboBox.addItem("Gerente");
+
+
+
         // Criando a tela
         JPanel cadastrar = criarCadastrar(funcionarios, tableModel, table);
         // Atribuindo valores pegos aos inputs
