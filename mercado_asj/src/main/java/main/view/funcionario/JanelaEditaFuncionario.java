@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -20,46 +21,53 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import main.control.cliente.ClientesControl;
+import main.control.funcionario.FuncionariosControl;
 
-public class JanelaEditaCliente extends JDialog {
+public class JanelaEditaFuncionario extends JDialog {
     //-----===| ATRIBUTOS |===-----//
     // Criando componentes
     private JPanel mainPanel = new JPanel();
 
     //---=| Edita |=---//
-    // Título EditaCliente
-    private JLabel tituloEdita = new JLabel("Edição de Cliente");
+    // Título Editafuncionario
+    private JLabel tituloEdita = new JLabel("Edição de funcionario");
 
-    // Cliente CPF
+    // funcionario CPF
     private JLabel cpfLabel = new JLabel("CPF:");
     private JTextField cpfInput = new JTextField(20);
 
-    // Cliente Nome
+    // funcionario Nome
     private JLabel nomeLabel = new JLabel("Nome:");
     private JTextField nomeInput = new JTextField(20);
 
-    // Cliente Telefone
+    // funcionario Telefone
     private JLabel telefoneLabel = new JLabel("Telefone:");
     private JTextField telefoneInput = new JTextField(20);
 
-    // Cliente Rua
+    // funcionario Rua
     private JLabel ruaLabel = new JLabel("Rua:");
     private JTextField ruaInput = new JTextField(20);
 
-    // Cliente Número
+    // funcionario Número
     private JLabel numeroLabel = new JLabel("Número:");
     private JTextField numeroInput = new JTextField(20);
 
-    // Cliente CEP
+    // funcionario CEP
     private JLabel cepLabel = new JLabel("CEP:");
     private JTextField cepInput = new JTextField(20);
+    
+    //funcionario senha
+    private JLabel senhaLabel = new JLabel("Senha:");
+    private JTextField senhaInput = new JTextField(20 );
+
+    private JLabel nivelAcessoLabel = new JLabel("Nivel de Acesso:");
+    private JComboBox<String> nivelAcessoComboBox = new JComboBox<>();
 
     // Botão Cadastrar/Cancelar
     private JButton buttonEditar = new JButton("Editar");
     private JButton buttonCancelar = new JButton("Cancelar");
 
-    private ClientesControl clientesControl;
+    private FuncionariosControl funcionarioControl;
 
     // ArrayList dos componentes a serem exibidos
     ArrayList<JComponent> componentes = new ArrayList<JComponent>(){
@@ -86,6 +94,12 @@ public class JanelaEditaCliente extends JDialog {
             // CEP
             add(cepLabel);
             add(cepInput);
+            // Senha
+            add(senhaLabel);
+            add(senhaInput);
+            // Nivel acesso
+            add(nivelAcessoLabel);
+            add(nivelAcessoComboBox);
 
             //-=| Botões |=-//
             add(buttonEditar);
@@ -96,15 +110,15 @@ public class JanelaEditaCliente extends JDialog {
     Insets insets; // Chamando insets para estilização do GridBaglayout
 
     //-----===| CONSTRUTOR |===-----///
-    public JanelaEditaCliente(JPanel parent, List<main.model.Cliente> clientes, DefaultTableModel tableModel, JTable table, int linhaSelecionada, String cpf, String nome, String telefone, String rua, String numero, String cep){
-        super((JFrame) SwingUtilities.getWindowAncestor(parent), "Cadastrar Cliente", true);
+    public JanelaEditafuncionario(JPanel parent, List<main.model.funcionario> funcionarios, DefaultTableModel tableModel, JTable table, int linhaSelecionada, String cpf, String nome, String telefone, String rua, String numero, String cep){
+        super((JFrame) SwingUtilities.getWindowAncestor(parent), "Cadastrar funcionario", true);
         // Adicionando mainPanel ao JFrame
         this.add(mainPanel);
         // Setando layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Criando a tela
-        JPanel cadastrar = criarCadastrar(clientes, tableModel, table);
+        JPanel cadastrar = criarCadastrar(funcionarios, tableModel, table);
         // Atribuindo valores pegos aos inputs
         cpfInput.setText(cpf);
         nomeInput.setText(nome);
@@ -125,7 +139,7 @@ public class JanelaEditaCliente extends JDialog {
 
     //-----===| MÉTODOS |===-----//
     //---=| Janela Cadastrar |=---//
-    private JPanel criarCadastrar(List<main.model.Cliente> clientes, DefaultTableModel tableModel, JTable table){
+    private JPanel criarCadastrar(List<main.model.funcionario> funcionarios, DefaultTableModel tableModel, JTable table){
         JPanel telaCadastrar = new JPanel();
         // Setando layout
         telaCadastrar.setLayout(new GridBagLayout());
@@ -188,9 +202,9 @@ public class JanelaEditaCliente extends JDialog {
         //---=| Tratamento de Evento |=---//
         // Botão cadastrar
         buttonEditar.addActionListener(e ->{
-            clientesControl = new ClientesControl(clientes, tableModel, table);
+            funcionariosControl = new funcionariosControl(funcionarios, tableModel, table);
 
-            if(clientesControl.checkClienteCampos(-1, "atualizar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
+            if(funcionariosControl.checkfuncionarioCampos(-1, "atualizar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
                 // "Resetando" campos
                 cpfInput.setText("");
                 nomeInput.setText("");
