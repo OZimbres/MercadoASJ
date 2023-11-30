@@ -202,7 +202,7 @@ public class JanelaEditaFuncionario extends JDialog {
         };
 
         // Configurand modelo de exibição
-        for (int i = 0; i < 15; i++) { // Menor que 15 pois 15 é a quantidade de item da janela
+        for (int i = 0; i < 19; i++) { // Menor que 15 pois 15 é a quantidade de item da janela
             elemento.gridx = posicaoComponentes[i][0];
             elemento.gridy = posicaoComponentes[i][1];
             elemento.gridwidth = posicaoComponentes[i][2];

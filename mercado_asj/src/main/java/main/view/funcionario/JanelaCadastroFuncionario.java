@@ -157,8 +157,8 @@ public class JanelaCadastroFuncionario extends JDialog {
             9, 10, // Número
             11, 12, // CEP
             13, 14, // Botões
-            15,16, //Senha
-            17,18 //nivel acesso
+            15, 16, //Senha
+            17, 18, //nivel acesso
 
         };
         // Declarando os valores de cada item
@@ -194,7 +194,7 @@ public class JanelaCadastroFuncionario extends JDialog {
         };
 
         // Configurand modelo de exibição
-        for(int i = 0; i < 15; i++){ // Menor que 15 pois 15 é a quantidade de item da janela
+        for(int i = 0; i < 19; i++){ // Menor que 15 pois 15 é a quantidade de item da janela
             elemento.gridx = posicaoComponentes[i][0];
             elemento.gridy = posicaoComponentes[i][1];
             elemento.gridwidth = posicaoComponentes[i][2];
