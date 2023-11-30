@@ -190,7 +190,7 @@ public class JanelaEditaCliente extends JDialog {
         buttonEditar.addActionListener(e ->{
             clientesControl = new ClientesControl(clientes, tableModel, table);
 
-            if(clientesControl.checkClienteCampos(-1, "cadastrar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
+            if(clientesControl.checkClienteCampos(-1, "atualizar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
                 // "Resetando" campos
                 cpfInput.setText("");
                 nomeInput.setText("");

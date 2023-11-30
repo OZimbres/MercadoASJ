@@ -111,6 +111,30 @@ public class PainelClientes extends JPanel {
                 atualizarTabela();
             }
         });
+        buttonApagar.addActionListener(e ->{
+            // Vou pegar a linha selecionada a partir do "ìndice" no cliente Info (usando regex)
+            // Padrão Regex para pedar a linha selecionada
+            Pattern pattern = Pattern.compile("Índice (-?\\d+)\\s*\\|");
+
+            // Criando um Matcher que corresponde ao padrão na entrada
+            Matcher matcher = pattern.matcher(clienteInfo.getText());
+            if(matcher.find()){
+                linhaSelecionada = Integer.valueOf(matcher.group(1));
+            }
+            
+            if(linhaSelecionada == -1){
+                JOptionPane.showMessageDialog(this, "É necessário selecionar algum cliente!");
+            } else{
+                // Variável temporária
+                String cpf = String.valueOf(table.getValueAt(linhaSelecionada, 0));
+
+                ClientesControl clientesControl = new ClientesControl(clientes, tableModel, table);
+
+                clientesControl.deleteCliente(linhaSelecionada, Long.valueOf(cpf));
+                
+                atualizarTabela();
+            }
+        });
     }
 
     private void atualizarTabela() {
