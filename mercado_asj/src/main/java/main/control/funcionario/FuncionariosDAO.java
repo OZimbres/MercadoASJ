@@ -74,7 +74,7 @@ public class FuncionariosDAO {
                 return null;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao consultar: " + ex);
             return null;
         }
         finally { // Independente se deu certo ou não, tem que fechar a conexão
@@ -99,12 +99,12 @@ public class FuncionariosDAO {
             preparedStatement.setString(8, nivelAcessoFuncionario);
             preparedStatement.execute();
 
-            JOptionPane.showMessageDialog(null, "Pessoa cadastrada com sucesso!");
+            JOptionPane.showMessageDialog(null, "Funcionário cadastrada com sucesso!");
 
             ConnectionFactory.closePreparedStatement(preparedStatement);
             ConnectionFactory.closeConnection(connection);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+            JOptionPane.showMessageDialog(null, "Erro ao cadastrar: " + ex);
         } finally {
             ConnectionFactory.closePreparedStatement(preparedStatement);
             ConnectionFactory.closeConnection(this.connection);
@@ -126,6 +126,8 @@ public class FuncionariosDAO {
             preparedStatement.setString(7, nivelAcessoFuncionario);
             preparedStatement.setLong(8, cpfFuncionario);
             preparedStatement.execute();
+
+            JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
 
             ConnectionFactory.closePreparedStatement(preparedStatement);
             ConnectionFactory.closeConnection(connection);

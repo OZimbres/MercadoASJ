@@ -6,7 +6,12 @@ import main.model.Login;
 
 public class FrameApp extends JFrame {
     public FrameApp(Login logado) {
-        super("MERCADO ASJ");
+        if(logado.getNivelAcesso().equals("operador")){
+            this.setTitle("MERCADO ASJ - Operador");
+        }
+        else{
+            this.setTitle("MERCADO ASJ - Gerente");
+        }
 
         this.add(new TabbedApp(logado));
 

@@ -16,8 +16,7 @@ public class FuncionariosControl {
     private JTable table;
     
     //-----===| CONSTRUTOR |===-----//
-    public FuncionariosControl(FuncionariosDAO funcionariosDAO, List<Funcionario> funcionarios,
-            DefaultTableModel tableModel, JTable table) {
+    public FuncionariosControl(FuncionariosDAO funcionariosDAO, List<Funcionario> funcionarios, DefaultTableModel tableModel, JTable table) {
         this.funcionariosDAO = funcionariosDAO;
         this.funcionarios = funcionarios;
         this.tableModel = tableModel;

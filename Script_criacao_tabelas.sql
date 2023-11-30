@@ -9,7 +9,9 @@ create table funcionarios(
 	nivel_acesso_funcionario VARCHAR(50) not null, --=| 2 níveis de acesso ('operador' e 'gerente') |=--
 	primary key(cpf_funcionario)
 );
-insert into funcionarios(cpf_funcionario, nome_funcionario, cep_funcionario, senha_funcionario, nivel_acesso_funcionario) values(12345678901, 'Geraldo Santos', 14256800, 'senha', 'gerente');
+insert into funcionarios(cpf_funcionario, nome_funcionario, cep_funcionario, senha_funcionario, nivel_acesso_funcionario) values
+	(12345678901, 'Geraldo Santos', 14256800, 'senha', 'gerente'),
+	(98765432109, 'João MacConti', 12369855, 'senha', 'operador');
 select * from funcionarios;
 
 create table estoque(
@@ -33,6 +35,9 @@ create table clientes(
 	cep_cliente DECIMAL(8,0) default 0,
 	primary key(cpf_cliente)
 );
+insert into clientes (cpf_cliente, nome_cliente) values
+	(14725836901, 'Ronaldo Silveira'),
+	(96385274109, 'Maria Botelho Carvalho');
 
 create table vendas(
 	id_venda SERIAL not null,

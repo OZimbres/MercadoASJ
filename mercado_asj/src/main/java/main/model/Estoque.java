@@ -4,7 +4,7 @@ public class Estoque {
     //-----===| ATRIBUTOS |===-----//
     private Short codigoProduto;
     private String nomeProduto;
-    private String descricaoproduto;
+    private String descricaoProduto;
     private String nomeFornecedor;
     private Double precoProduto;
     private Integer quantidadeProduto;
@@ -14,10 +14,10 @@ public class Estoque {
     //-----===| CONSTRUTOR |===-----//
     public Estoque() {}
 
-    public Estoque(Short codigoProduto, String nomeProduto, String descricaoproduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
+    public Estoque(Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         this.codigoProduto = codigoProduto;
         this.nomeProduto = nomeProduto;
-        this.descricaoproduto = descricaoproduto;
+        this.descricaoProduto = descricaoProduto;
         this.nomeFornecedor = nomeFornecedor;
         this.precoProduto = precoProduto;
         this.quantidadeProduto = quantidadeProduto;
@@ -40,11 +40,11 @@ public class Estoque {
         this.nomeProduto = nomeProduto;
     }
 
-    public String getDescricaoproduto() {
-        return descricaoproduto;
+    public String getDescricaoProduto() {
+        return descricaoProduto;
     }
-    public void setDescricaoproduto(String descricaoproduto) {
-        this.descricaoproduto = descricaoproduto;
+    public void setDescricaoProduto(String descricaoProduto) {
+        this.descricaoProduto = descricaoProduto;
     }
 
     public String getNomeFornecedor() {
