@@ -138,7 +138,7 @@ public class ClientesControl {
     // Método para validar o formato do CPF
     private boolean validarFormatoCPF(String cpf) {
         cpf = cpf.replaceAll("[^0-9]", "");
-        return cpf.length() == 11 || cpf.length() == 0;
+        return cpf.length() == 11;
     }
     private static boolean validarFormatoTelefone(String telefone) {
         // Remove qualquer caractere não numérico

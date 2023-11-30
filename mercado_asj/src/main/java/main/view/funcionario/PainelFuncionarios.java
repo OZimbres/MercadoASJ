@@ -16,10 +16,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
-import main.control.cliente.ClientesControl;
-import main.control.cliente.ClientesDAO;
 import main.control.funcionario.FuncionariosControl;
+import main.control.funcionario.FuncionariosDAO;
 import main.model.Funcionario;
 
 public class PainelFuncionarios extends JPanel {
@@ -31,7 +29,7 @@ public class PainelFuncionarios extends JPanel {
     private DefaultTableModel tableModel;
     private int linhaSelecionada = -1;
 
-    private ClientesControl ClientesControl;
+    private FuncionariosControl funcionarioControl;
 
     //-----===| CONSTRUTOR |===-----//
     public PainelFuncionarios() {
@@ -62,7 +60,7 @@ public class PainelFuncionarios extends JPanel {
         table = new JTable(tableModel); // Declarando a tabela com o estilo definido no tableModel
         scrollPane.setViewportView(table);
 
-        new ClientesDAO();
+        new FuncionariosDAO();
 
         atualizarTabela();
 
@@ -135,7 +133,7 @@ public class PainelFuncionarios extends JPanel {
 
                 FuncionariosControl funcionarioControl = new FuncionariosControl(funcionarios, tableModel, table);
 
-                if(clientesControl.checkFuncionarioCampos(linhaSelecionada, "deletar", cpf, "temporario", "", "", "", "","","")){
+                if(funcionarioControl.checkFuncionarioCampos(linhaSelecionada, "deletar", cpf, "temporario", "", "", "", "","","")){
                     clienteInfo.setText("Índice | CPF: | Nome: ");
                     atualizarTabela();
                 }
@@ -146,7 +144,7 @@ public class PainelFuncionarios extends JPanel {
     private void atualizarTabela() {
         try {
             tableModel.setRowCount(0);
-            clientes = new ClientesDAO().readAll();
+            funcionarios = new FuncionariosDAO().readAll();
             Object linha[] = new Object[8];
 
             for (int i = 0; i < clientes.size(); i++) {
