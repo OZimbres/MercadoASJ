@@ -204,8 +204,7 @@ public class JanelaEditaFuncionario extends JDialog {
             elemento.gridheight = posicaoComponentes[i][3];
             elemento.weightx = posicaoComponentes[i][4];
             elemento.weighty = posicaoComponentes[i][5];
-            elemento.insets = new Insets(posicaoComponentes[i][6], posicaoComponentes[i][7], posicaoComponentes[i][8],
-                    posicaoComponentes[i][9]);
+            elemento.insets = new Insets(posicaoComponentes[i][6], posicaoComponentes[i][7], posicaoComponentes[i][8], posicaoComponentes[i][9]);
 
             telaCadastrar.add(componentes.get(posicaoNoArray[i]), elemento);
         }
@@ -223,6 +222,7 @@ public class JanelaEditaFuncionario extends JDialog {
                 ruaInput.setText("");
                 numeroInput.setText("");
                 cepInput.setText("");
+                senhaInput.setText("");
 
                 dispose(); // Fecha a janela
             }
@@ -239,6 +239,7 @@ public class JanelaEditaFuncionario extends JDialog {
                 ruaInput.setText("");
                 numeroInput.setText("");
                 cepInput.setText("");
+                senhaInput.setText("");
 
                 dispose(); // Fecha a janela
             }

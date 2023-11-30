@@ -147,13 +147,15 @@ public class PainelFuncionarios extends JPanel {
             funcionarios = new FuncionariosDAO().readAll();
             Object linha[] = new Object[8];
 
-            for (int i = 0; i < clientes.size(); i++) {
-                linha[0] = clientes.get(i).getCpfCliente();
-                linha[1] = clientes.get(i).getNomeCliente();
-                linha[2] = (clientes.get(i).getTelefoneCliente() == 0) ? "" : clientes.get(i).getTelefoneCliente();
-                linha[3] = clientes.get(i).getRuaCliente();
-                linha[4] = clientes.get(i).getNumeroCliente();
-                linha[5] = (clientes.get(i).getCepCliente() == 0) ? "" : clientes.get(i).getCepCliente();
+            for (int i = 0; i < funcionarios.size(); i++) {
+                linha[0] = funcionarios.get(i).getCpfFuncionario();
+                linha[1] = funcionarios.get(i).getNomeFuncionario();
+                linha[2] = (funcionarios.get(i).getTelefoneFuncionario() == 0) ? "" : funcionarios.get(i).getTelefoneFuncionario();
+                linha[3] = funcionarios.get(i).getRuaFuncionario();
+                linha[4] = funcionarios.get(i).getNumeroFuncionario();
+                linha[5] = (funcionarios.get(i).getCepFuncionario() == 0) ? "" : funcionarios.get(i).getCepFuncionario();
+                linha[6] = (funcionarios.get(i).getSenhaFuncionario());
+                linha[7] = (funcionarios.get(i).getNivelAcessoFuncionario());
                 tableModel.addRow(linha);
             }
         } catch (SQLException e) {
