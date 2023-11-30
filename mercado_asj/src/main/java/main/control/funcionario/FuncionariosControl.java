@@ -3,6 +3,7 @@ package main.control.funcionario;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -16,8 +17,7 @@ public class FuncionariosControl {
     private JTable table;
     
     //-----===| CONSTRUTOR |===-----//
-    public FuncionariosControl(FuncionariosDAO funcionariosDAO, List<Funcionario> funcionarios, DefaultTableModel tableModel, JTable table) {
-        this.funcionariosDAO = funcionariosDAO;
+    public FuncionariosControl(List<main.model.Funcionario> funcionarios, DefaultTableModel tableModel, JTable table) {
         this.funcionarios = funcionarios;
         this.tableModel = tableModel;
         this.table = table;
@@ -82,5 +82,55 @@ public class FuncionariosControl {
             linha[6] = funcionarios.get(i).getSenhaFuncionario();
             linha[7] = funcionarios.get(i).getNivelAcessoFuncionario();
         }
+    }
+    public boolean checkFuncionarioCampos(int linhaSelecionada, String operacao, String cpf, String nome, String telefone, String rua, String numero, String cep, String senha, String nivelAcesso){
+        // Verifica se os campos estão preenchidos
+        if (cpf.isEmpty() || nome.isEmpty() || senha.isEmpty() || nivelAcesso.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ATENÇÃO!\nCampos obrigatórios estão em branco");
+            return false;
+        }
+        if(!validarFormatoCPF(cpf)){
+            JOptionPane.showMessageDialog(null, "CPF inválido!\nO CPF deve conter apenas números e ter 11 dígitos!");
+            return false;
+        }
+        if(!validarFormatoTelefone(telefone)){
+            JOptionPane.showMessageDialog(null, "Telefone inválido!\nO Telefone deve conter apenas números e ter entre 9 e 11 dígitos!");
+            return false;
+        }
+        if(!validarFormatoNumero(numero)){
+            JOptionPane.showMessageDialog(null, "Número inválido!\nO Número deve conter até 10 dígitos e no máximo 1 letra!");
+            return false;
+        }
+        if(!validarFormatoCEP(cep)){
+            JOptionPane.showMessageDialog(null, "CEP inválido!\nO CEP deve conter apenas números e ter 8 dígitos!");
+            return false;
+        }
+
+        if(operacao.equals("cadastrar")){
+            int resposta = JOptionPane.showConfirmDialog(null,"Realizar cadastro?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                // Evitar problemas de conversão (Long/Integer para String)
+                telefone = (telefone.equals("")) ? "0" : telefone;
+                cep = (cep.equals("")) ? "0" : cep;
+
+                // Executa a operação de cadastrar
+                createFuncionario(Long.valueOf(cpf.trim()), nome.trim(), Long.valueOf(telefone.trim()), rua.trim(), numero.trim(), Integer.valueOf(cep.trim()),senha.trim(),nivelAcesso.trim());
+            }
+        }
+        else if(operacao.equals("atualizar")){
+            int resposta = JOptionPane.showConfirmDialog(null,"Realizar edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                // Executa a operação de editar
+                updateFuncionario(linhaSelecionada, Long.valueOf(cpf.trim()), nome.trim(), Long.valueOf(telefone.trim()), rua.trim(), numero.trim(), Integer.valueOf(cep.trim()),senha.trim(),nivelAcesso.trim());
+            }
+        }
+        else{
+            int resposta = JOptionPane.showConfirmDialog(null,"Realizar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            if (resposta == JOptionPane.YES_OPTION) {
+                // Executa a opção de deletar
+                deleteFuncionario(linhaSelecionada, Long.valueOf(cpf.trim()));
+            }
+        }
+        return true;
     }
 }

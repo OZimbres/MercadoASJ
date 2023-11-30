@@ -58,7 +58,7 @@ public class ClientesControl {
     //---=| DELETE |=---//
     public void deleteCliente(int linhaSelecionada, Long cpfCliente) {
         try {
-            if(linhaSelecionada != 1){
+            if(linhaSelecionada != -1){
                 clientesDAO.delete(cpfCliente);
                 clientes.remove(linhaSelecionada);
                 
