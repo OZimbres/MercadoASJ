@@ -85,7 +85,7 @@ public class ClientesDAO {
 
     //---=| CREATE |=---//
     public void create(Long cpfCliente, String nomeCliente, Long telefoneCliente, String ruaCliente, String numeroCliente, Integer cepCliente) throws SQLException {
-        String query = "INSERT INTO Clientes (cpf_cliente, nome_cliente, telefone_cliente, rua_cliente, numero_rua_cliente, cep_cliente) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO clientes (cpf_cliente, nome_cliente, telefone_cliente, rua_cliente, numero_rua_cliente, cep_cliente) VALUES (?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
