@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import main.control.login.LoginControl;
+import main.control.LoginControl;
 import main.model.Login;
 import main.view.FrameApp;
 

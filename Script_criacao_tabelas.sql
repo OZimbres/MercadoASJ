@@ -21,10 +21,11 @@ create table estoque(
 	nome_fornecedor VARCHAR(300) not null,
 	preco_produto DECIMAL(12,2) not null,
 	quantidade_produto DECIMAL(6,0) not null,
-	desconto_vip_produto DECIMAL(3,3) default 0, --=| desconto em PORCENTAGEM |=--
+	desconto_vip_produto DECIMAL(6,3) default 0, --=| desconto em PORCENTAGEM |=--
 	status_produto BOOLEAN default FALSE,
 	primary key(codigo_produto)
 );
+select * from estoque;
 
 create table clientes(
 	cpf_cliente DECIMAL(11,0) not null,

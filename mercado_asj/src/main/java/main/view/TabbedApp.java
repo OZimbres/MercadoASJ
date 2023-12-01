@@ -6,13 +6,14 @@ import main.model.Login;
 import main.view.cliente.PainelClientes;
 import main.view.estoque.PainelEstoque;
 import main.view.funcionario.PainelFuncionarios;
+import main.view.venda.PainelVenda;
 
 public class TabbedApp extends JTabbedPane {
     //PainelCarros painelCarros;
     PainelClientes painelClientes = new PainelClientes();
     PainelFuncionarios painelFuncionarios = new PainelFuncionarios();
     PainelEstoque painelEstoque = new PainelEstoque();
-    //PainelVendas painelVendas;
+    PainelVenda painelVenda = new PainelVenda();
 
     public TabbedApp(Login logado) {
         super();
@@ -22,9 +23,10 @@ public class TabbedApp extends JTabbedPane {
         switch (logado.getNivelAcesso()) {
             case "gerente":
                 this.add("Estoque", painelEstoque);
-                this.add("Funcionarios", painelFuncionarios);
+                this.add("Funcionários", painelFuncionarios);
             case "operador":
                 this.add("Clientes", painelClientes);
+                this.add("Venda", painelVenda);
             default:
                 break;
         }

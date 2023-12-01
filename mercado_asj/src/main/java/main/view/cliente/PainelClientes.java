@@ -17,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import main.control.cliente.ClientesControl;
-import main.control.cliente.ClientesDAO;
+import main.control.ClientesControl;
+import main.dao.ClientesDAO;
 import main.model.Cliente;
 
 public class PainelClientes extends JPanel {
@@ -82,6 +82,7 @@ public class PainelClientes extends JPanel {
         buttonCadastrar.addActionListener(e ->{
             JanelaCadastroCliente janelaCadastrar = new JanelaCadastroCliente(this, clientes, tableModel, table);
             janelaCadastrar.setVisible(true);
+            clienteInfo.setText("Índice | CPF: | Nome: ");
             atualizarTabela();
         });
         buttonEditar.addActionListener(e ->{
@@ -106,9 +107,49 @@ public class PainelClientes extends JPanel {
                 String numero = String.valueOf(table.getValueAt(linhaSelecionada, 4));
                 String cep = String.valueOf(table.getValueAt(linhaSelecionada, 5));
 
+                // Evitar problemas
+                if(telefone.equals("Não registrado")){
+                    telefone = "";
+                }
+                if(rua.equals("Não registrado")){
+                    rua = "";
+                }
+                if(numero.equals("Não registrado")){
+                    numero = "";
+                }
+                if(cep.equals("Não registrado")){
+                    cep = "";
+                }
+
                 JanelaEditaCliente janelaEdita = new JanelaEditaCliente(this, clientes, tableModel, table, linhaSelecionada, cpf, nome, telefone, rua, numero, cep);
                 janelaEdita.setVisible(true);
+                clienteInfo.setText("Índice | CPF: | Nome: ");
                 atualizarTabela();
+            }
+        });
+        buttonApagar.addActionListener(e ->{
+            // Vou pegar a linha selecionada a partir do "ìndice" no cliente Info (usando regex)
+            // Padrão Regex para pedar a linha selecionada
+            Pattern pattern = Pattern.compile("Índice (-?\\d+)\\s*\\|");
+
+            // Criando um Matcher que corresponde ao padrão na entrada
+            Matcher matcher = pattern.matcher(clienteInfo.getText());
+            if(matcher.find()){
+                linhaSelecionada = Integer.valueOf(matcher.group(1));
+            }
+            
+            if(linhaSelecionada == -1){
+                JOptionPane.showMessageDialog(this, "É necessário selecionar algum cliente!");
+            } else{
+                // Variável temporária
+                String cpf = String.valueOf(table.getValueAt(linhaSelecionada, 0));
+
+                ClientesControl clientesControl = new ClientesControl(clientes, tableModel, table);
+
+                if(clientesControl.checkClienteCampos(linhaSelecionada, "deletar", cpf, "temporario", "", "", "", "")){
+                    clienteInfo.setText("Índice | CPF: | Nome: ");
+                    atualizarTabela();
+                }
             }
         });
     }
@@ -122,11 +163,16 @@ public class PainelClientes extends JPanel {
             for (int i = 0; i < clientes.size(); i++) {
                 linha[0] = clientes.get(i).getCpfCliente();
                 linha[1] = clientes.get(i).getNomeCliente();
-                linha[2] = (clientes.get(i).getTelefoneCliente() == 0) ? "" : clientes.get(i).getTelefoneCliente();
-                linha[3] = clientes.get(i).getRuaCliente();
-                linha[4] = clientes.get(i).getNumeroCliente();
-                linha[5] = (clientes.get(i).getCepCliente() == 0) ? "" : clientes.get(i).getCepCliente();
-                tableModel.addRow(linha);
+
+                linha[2] = (clientes.get(i).getTelefoneCliente() == 0) ? "Não registrado" : clientes.get(i).getTelefoneCliente();
+
+                linha[3] = (clientes.get(i).getRuaCliente().equals("")) ? "Não registrado" : clientes.get(i).getNumeroCliente();
+
+                linha[4] = (clientes.get(i).getNumeroCliente().equals("")) ? "Não registrado" : clientes.get(i).getNumeroCliente();
+
+                linha[5] = (clientes.get(i).getCepCliente() == 0) ? "Não registrado" : clientes.get(i).getCepCliente();
+
+                tableModel.insertRow(0, linha);
             }
         } catch (SQLException e) {
             e.printStackTrace();
