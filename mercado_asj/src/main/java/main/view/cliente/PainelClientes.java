@@ -125,6 +125,7 @@ public class PainelClientes extends JPanel {
                 janelaEdita.setVisible(true);
                 clienteInfo.setText("Índice | CPF: | Nome: ");
                 atualizarTabela();
+                linhaSelecionada = -1;
             }
         });
         buttonApagar.addActionListener(e ->{
