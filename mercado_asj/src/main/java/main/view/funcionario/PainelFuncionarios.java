@@ -27,7 +27,7 @@ import main.model.Funcionario;
 public class PainelFuncionarios extends JPanel {
     //-----===| ATRIBUTOS |===-----//
     private JButton buttonCadastrar, buttonApagar, buttonEditar;
-    private JLabel clienteInfo = new JLabel("Índice | CPF: | Nome: | Tipo: ");
+    private JLabel funcionarioInfo = new JLabel("Índice | CPF: | Nome: | Tipo: ");
     private JComboBox<String> modoExibicaoComboBox = new JComboBox<>();
     private List<Funcionario> funcionarios;
     private JTable table;
@@ -66,15 +66,15 @@ public class PainelFuncionarios extends JPanel {
         botoes.add(buttonApagar);
 
 
-        // Informação do cliente selecionado sendo exibida
+        // Informação do funcionario selecionado sendo exibida
         JPanel inputPanel = new JPanel();
-        inputPanel.add(clienteInfo);
+        inputPanel.add(funcionarioInfo);
 
         // Adicionando paineis ao JPanel da janela
         this.add(botoes);
         this.add(inputPanel);
 
-        // Tabela de Clientes
+        // Tabela de funcionarios
         JScrollPane scrollPane = new JScrollPane();
         this.add(scrollPane); // Adicionando scrollPane ao JPanel da janela
         tableModel = new DefaultTableModel(new Object[][] {}, new String[] {"CPF", "Nome", "Telefone", "Rua", "Número", "CEP", "Senha", "Tipo"}); // "Desenhando" organização da tabela com o tableModel
@@ -99,29 +99,29 @@ public class PainelFuncionarios extends JPanel {
                     String cpf = String.valueOf(table.getValueAt(linhaSelecionada, 0));
                     String nome = String.valueOf(table.getValueAt(linhaSelecionada, 1));
                     String nivel = String.valueOf(table.getValueAt(linhaSelecionada, 7));
-                    clienteInfo.setText("Índice "+ linhaSelecionada +" | CPF: "+ cpf +" | Nome: "+ nome +" | Tipo: "+ nivel);
+                    funcionarioInfo.setText("Índice "+ linhaSelecionada +" | CPF: "+ cpf +" | Nome: "+ nome +" | Tipo: "+ nivel);
                 }
             }
         });
         buttonCadastrar.addActionListener(e ->{
             JanelaCadastroFuncionario janelaCadastrar = new JanelaCadastroFuncionario(this, funcionarios, tableModel, table);
             janelaCadastrar.setVisible(true);
-            clienteInfo.setText("Índice | CPF: | Nome: | Tipo: ");
+            funcionarioInfo.setText("Índice | CPF: | Nome: | Tipo: ");
             atualizarTabela(String.valueOf(modoExibicaoComboBox.getSelectedItem()));
         });
         buttonEditar.addActionListener(e ->{
-            // Vou pegar a linha selecionada a partir do "ìndice" no cliente Info (usando regex)
+            // Vou pegar a linha selecionada a partir do "ìndice" no funcionario Info (usando regex)
             // Padrão Regex para pedar a linha selecionada
             Pattern pattern = Pattern.compile("Índice (-?\\d+)\\s*\\|");
 
             // Criando um Matcher que corresponde ao padrão na entrada
-            Matcher matcher = pattern.matcher(clienteInfo.getText());
+            Matcher matcher = pattern.matcher(funcionarioInfo.getText());
             if(matcher.find()){
                 linhaSelecionada = Integer.valueOf(matcher.group(1));
             }
             
             if(linhaSelecionada == -1){
-                JOptionPane.showMessageDialog(this, "É necessário selecionar algum cliente!");
+                JOptionPane.showMessageDialog(this, "É necessário selecionar algum funcionario!");
             } else{
                 // Variáveis temporárias
                 String cpf = String.valueOf(table.getValueAt(linhaSelecionada, 0));
@@ -150,18 +150,18 @@ public class PainelFuncionarios extends JPanel {
                 JanelaEditaFuncionario janelaEdita = new JanelaEditaFuncionario(this, funcionarios, tableModel, table, linhaSelecionada, cpf, nome, telefone, rua, numero, cep, senha, nivelAcesso);
                 janelaEdita.setVisible(true);
                 // "Resetando"
-                clienteInfo.setText("Índice | CPF: | Nome: | Tipo: ");
+                funcionarioInfo.setText("Índice | CPF: | Nome: | Tipo: ");
                 atualizarTabela(String.valueOf(modoExibicaoComboBox.getSelectedItem()));
                 linhaSelecionada = -1;
             }
         });
         buttonApagar.addActionListener(e ->{
-            // Vou pegar a linha selecionada a partir do "ìndice" no cliente Info (usando regex)
+            // Vou pegar a linha selecionada a partir do "ìndice" no funcionario Info (usando regex)
             // Padrão Regex para pedar a linha selecionada
             Pattern pattern = Pattern.compile("Índice (-?\\d+)\\s*\\|");
 
             // Criando um Matcher que corresponde ao padrão na entrada
-            Matcher matcher = pattern.matcher(clienteInfo.getText());
+            Matcher matcher = pattern.matcher(funcionarioInfo.getText());
             if(matcher.find()){
                 linhaSelecionada = Integer.valueOf(matcher.group(1));
             }
@@ -176,7 +176,7 @@ public class PainelFuncionarios extends JPanel {
 
                 if(funcionarioControl.checkFuncionarioCampos(linhaSelecionada, "deletar", cpf, "temporario", "", "", "", "","temporario","temporario")){
                     // "Resetando"
-                    clienteInfo.setText("Índice | CPF: | Nome: | Tipo: ");
+                    funcionarioInfo.setText("Índice | CPF: | Nome: | Tipo: ");
                     atualizarTabela(String.valueOf(modoExibicaoComboBox.getSelectedItem()));
                     linhaSelecionada = -1;
                 }
