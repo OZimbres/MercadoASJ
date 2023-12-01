@@ -1,4 +1,4 @@
-package main.control.login;
+package main.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

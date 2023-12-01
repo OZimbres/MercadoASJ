@@ -14,8 +14,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import javafx.scene.paint.Color;
-import main.control.estoque.EstoquesControl;
-import main.control.estoque.EstoquesDAO;
+import main.control.EstoquesControl;
+import main.dao.EstoquesDAO;
 import main.model.Estoque;
 
 public class PainelEstoque extends JPanel {

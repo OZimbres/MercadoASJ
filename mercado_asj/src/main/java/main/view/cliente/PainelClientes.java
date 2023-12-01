@@ -17,8 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import main.control.cliente.ClientesControl;
-import main.control.cliente.ClientesDAO;
+import main.control.ClientesControl;
+import main.dao.ClientesDAO;
 import main.model.Cliente;
 
 public class PainelClientes extends JPanel {

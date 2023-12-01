@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import main.control.cliente.ClientesControl;
+import main.control.ClientesControl;
 
 public class JanelaEditaCliente extends JDialog {
     //-----===| ATRIBUTOS |===-----//

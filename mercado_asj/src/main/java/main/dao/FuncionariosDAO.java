@@ -1,4 +1,4 @@
-package main.control.funcionario;
+package main.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

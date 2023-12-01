@@ -1,4 +1,4 @@
-package main.control.estoque;
+package main.control;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import main.dao.EstoquesDAO;
 import main.model.Estoque;
 
 public class EstoquesControl {

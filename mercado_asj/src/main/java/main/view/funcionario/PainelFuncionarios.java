@@ -19,15 +19,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import main.control.funcionario.FuncionariosControl;
-import main.control.funcionario.FuncionariosDAO;
+
+import main.control.FuncionariosControl;
+import main.dao.FuncionariosDAO;
 import main.model.Funcionario;
 
 public class PainelFuncionarios extends JPanel {
     //-----===| ATRIBUTOS |===-----//
     private JButton buttonCadastrar, buttonApagar, buttonEditar;
     private JLabel clienteInfo = new JLabel("Índice | CPF: | Nome: | Tipo: ");
-    private JComboBox<String>modoExibicaoComboBox = new JComboBox<>();
+    private JComboBox<String> modoExibicaoComboBox = new JComboBox<>();
     private List<Funcionario> funcionarios;
     private JTable table;
     private DefaultTableModel tableModel;
@@ -80,7 +81,7 @@ public class PainelFuncionarios extends JPanel {
         table = new JTable(tableModel); // Declarando a tabela com o estilo definido no tableModel
         // Definindo um renderizador de célula personalizado para a tabela
         table.setDefaultRenderer(Object.class, new ColoredCellRenderer());
-        
+
         scrollPane.setViewportView(table);
 
         new FuncionariosDAO();

@@ -1,9 +1,10 @@
-package main.control.login;
+package main.control;
 
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
+import main.dao.LoginDAO;
 import main.model.Funcionario;
 
 public class LoginControl {

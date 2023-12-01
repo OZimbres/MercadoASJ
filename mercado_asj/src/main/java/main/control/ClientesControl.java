@@ -1,4 +1,4 @@
-package main.control.cliente;
+package main.control;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import main.dao.ClientesDAO;
 import main.model.Cliente;
 
 public class ClientesControl {

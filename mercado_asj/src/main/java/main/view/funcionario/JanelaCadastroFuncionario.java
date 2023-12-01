@@ -21,7 +21,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
-import main.control.funcionario.FuncionariosControl;
+import main.control.FuncionariosControl;
 
 public class JanelaCadastroFuncionario extends JDialog {
     //-----===| ATRIBUTOS |===-----//
