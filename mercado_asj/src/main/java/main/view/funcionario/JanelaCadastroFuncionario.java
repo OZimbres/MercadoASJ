@@ -211,7 +211,7 @@ public class JanelaCadastroFuncionario extends JDialog {
         buttonCadastrar.addActionListener(e ->{
             funcionarioControl = new FuncionariosControl(funcionarios, tableModel, table);
 
-            if(funcionarioControl.checkFuncionarioCampos(-1, "cadastrar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText(), senhaInput.getText(), String.valueOf(nivelAcessoComboBox.getSelectedItem()))){
+            if(funcionarioControl.checkFuncionarioCampos(-1, "cadastrar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText(), senhaInput.getText(), String.valueOf(nivelAcessoComboBox.getSelectedItem()).toLowerCase())){
                 // "Resetando" campos
                 cpfInput.setText("");
                 nomeInput.setText("");

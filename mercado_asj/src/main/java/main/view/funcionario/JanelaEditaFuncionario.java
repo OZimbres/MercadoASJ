@@ -120,10 +120,8 @@ public class JanelaEditaFuncionario extends JDialog {
         nivelAcessoComboBox.addItem("Operador");
         nivelAcessoComboBox.addItem("Gerente");
 
-
-
         // Criando a tela
-        JPanel cadastrar = criarCadastrar(funcionarios, tableModel, table);
+        JPanel cadastrar = criarCadastrar(funcionarios, tableModel, table, linhaSelecionada);
         // Atribuindo valores pegos aos inputs
         cpfInput.setText(cpf);
         nomeInput.setText(nome);
@@ -145,8 +143,7 @@ public class JanelaEditaFuncionario extends JDialog {
 
     // -----===| MÉTODOS |===-----//
     // ---=| Janela Cadastrar |=---//
-    private JPanel criarCadastrar(List<main.model.Funcionario> funcionarios, DefaultTableModel tableModel,
-            JTable table) {
+    private JPanel criarCadastrar(List<main.model.Funcionario> funcionarios, DefaultTableModel tableModel, JTable table, int linhaSelecionada) {
         JPanel telaCadastrar = new JPanel();
         // Setando layout
         telaCadastrar.setLayout(new GridBagLayout());
@@ -219,7 +216,7 @@ public class JanelaEditaFuncionario extends JDialog {
         buttonEditar.addActionListener(e -> {
             funcionarioControl = new FuncionariosControl(funcionarios, tableModel, table);
 
-            if (funcionarioControl.checkFuncionarioCampos(-1, "cadastrar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText(), senhaInput.getText(), String.valueOf(nivelAcessoComboBox.getSelectedItem()))) {
+            if (funcionarioControl.checkFuncionarioCampos(linhaSelecionada, "atualizar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText(), senhaInput.getText(), String.valueOf(nivelAcessoComboBox.getSelectedItem()).toLowerCase())) {
                 // "Resetando" campos
                 cpfInput.setText("");
                 nomeInput.setText("");
@@ -234,8 +231,7 @@ public class JanelaEditaFuncionario extends JDialog {
         });
         // Botão cancelar
         buttonCancelar.addActionListener(e -> {
-            int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Edição?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // "Resetando" campos
                 cpfInput.setText("");

@@ -48,11 +48,9 @@ public class FuncionariosControl {
             String senhaFuncionario, String nivelAcessoFuncionario) {
         if (linhaSelecionada != -1) {
             try {
-                funcionariosDAO.update(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario,
-                        numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
+                funcionariosDAO.update(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
 
-                Funcionario funcionario = new Funcionario(cpfFuncionario, nomeFuncionario, telefoneFuncionario,
-                        ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
+                Funcionario funcionario = new Funcionario(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
                 funcionarios.set(linhaSelecionada, funcionario);
 
                 atualizarTabela();
@@ -92,8 +90,7 @@ public class FuncionariosControl {
         }
     }
 
-    public boolean checkFuncionarioCampos(int linhaSelecionada, String operacao, String cpf, String nome,
-            String telefone, String rua, String numero, String cep, String senha, String nivelAcesso) {
+    public boolean checkFuncionarioCampos(int linhaSelecionada, String operacao, String cpf, String nome, String telefone, String rua, String numero, String cep, String senha, String nivelAcesso) {
         // Verifica se os campos estão preenchidos
         if (cpf.isEmpty() || nome.isEmpty() || senha.isEmpty() || nivelAcesso.isEmpty()) {
             JOptionPane.showMessageDialog(null, "ATENÇÃO!\nCampos obrigatórios estão em branco");
@@ -123,29 +120,27 @@ public class FuncionariosControl {
         }
 
         if (operacao.equals("cadastrar")) {
-            int resposta = JOptionPane.showConfirmDialog(null, "Realizar cadastro?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null, "Realizar cadastro?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Evitar problemas de conversão (Long/Integer para String)
                 telefone = (telefone.equals("")) ? "0" : telefone;
                 cep = (cep.equals("")) ? "0" : cep;
 
                 // Executa a operação de cadastrar
-                createFuncionario(Long.valueOf(cpf.trim()), nome.trim(), Long.valueOf(telefone.trim()), rua.trim(),
-                        numero.trim(), Integer.valueOf(cep.trim()), senha.trim(), nivelAcesso.trim());
+                createFuncionario(Long.valueOf(cpf.trim()), nome.trim(), Long.valueOf(telefone.trim()), rua.trim(), numero.trim(), Integer.valueOf(cep.trim()), senha.trim(), nivelAcesso.trim());
             }
         } else if (operacao.equals("atualizar")) {
-            int resposta = JOptionPane.showConfirmDialog(null, "Realizar edição?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null, "Realizar edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                // Evitar problemas de conversão (Long/Integer para String)
+                telefone = (telefone.equals("")) ? "0" : telefone;
+                cep = (cep.equals("")) ? "0" : cep;
+
                 // Executa a operação de editar
-                updateFuncionario(linhaSelecionada, Long.valueOf(cpf.trim()), nome.trim(),
-                        Long.valueOf(telefone.trim()), rua.trim(), numero.trim(), Integer.valueOf(cep.trim()),
-                        senha.trim(), nivelAcesso.trim());
+                updateFuncionario(linhaSelecionada, Long.valueOf(cpf.trim()), nome.trim(), Long.valueOf(telefone.trim()), rua.trim(), numero.trim(), Integer.valueOf(cep.trim()), senha.trim(), nivelAcesso.trim());
             }
         } else {
-            int resposta = JOptionPane.showConfirmDialog(null, "Realizar exclusão?", "Confirmação",
-                    JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null, "Realizar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a opção de deletar
                 deleteFuncionario(linhaSelecionada, Long.valueOf(cpf.trim()));
@@ -170,9 +165,9 @@ public class FuncionariosControl {
     // números e até 1 letra)
     private boolean validarFormatoNumero(String numero) {
         // Expressão regular para validar o formato da entrada
-        String regex = "^[a-zA-Z0-9]{0,1}[0-9]{0,9}$";
-        // Remove espaços em branco antes e depois da entrada
-        numero = numero.trim();
+        String regex = "^[0-9]*[a-zA-Z]?[0-9]*$";
+        // Remove todos os espaços em branco
+        numero = numero.replaceAll("\\s", "");
         // Verifica se a entrada corresponde à expressão regular
         return numero.matches(regex) || numero.length() == 0;
     }

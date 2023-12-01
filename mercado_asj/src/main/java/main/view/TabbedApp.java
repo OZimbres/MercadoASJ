@@ -22,7 +22,7 @@ public class TabbedApp extends JTabbedPane {
         switch (logado.getNivelAcesso()) {
             case "gerente":
                 this.add("Estoque", painelEstoque);
-                this.add("Funcionarios", painelFuncionarios);
+                this.add("Funcionários", painelFuncionarios);
             case "operador":
                 this.add("Clientes", painelClientes);
             default:

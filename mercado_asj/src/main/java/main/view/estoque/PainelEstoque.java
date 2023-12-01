@@ -135,7 +135,6 @@ public class PainelEstoque extends JPanel {
 
                 JanelaEditaEstoque janelaEdita = new JanelaEditaEstoque(this, estoqueProdutos, tableModel, table, linhaSelecionada, codigo, nomeProduto, descricao, nomeFornecedor, preco, quantidade, desconto, status);
                 janelaEdita.setVisible(true);
-
                 // "Resetando"
                 produtoInfo.setText("Índice | Código: | Nome: | Quantidade: | Preço: | Status: ");
                 atualizarTabela(String.valueOf(modoExibicaoComboBox.getSelectedItem()));
