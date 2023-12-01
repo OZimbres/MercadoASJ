@@ -104,7 +104,7 @@ public class JanelaEditaCliente extends JDialog {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Criando a tela
-        JPanel cadastrar = criarCadastrar(clientes, tableModel, table);
+        JPanel cadastrar = criarCadastrar(clientes, tableModel, table, linhaSelecionada);
         // Atribuindo valores pegos aos inputs
         cpfInput.setText(cpf);
         nomeInput.setText(nome);
@@ -125,7 +125,7 @@ public class JanelaEditaCliente extends JDialog {
 
     //-----===| MÉTODOS |===-----//
     //---=| Janela Cadastrar |=---//
-    private JPanel criarCadastrar(List<main.model.Cliente> clientes, DefaultTableModel tableModel, JTable table){
+    private JPanel criarCadastrar(List<main.model.Cliente> clientes, DefaultTableModel tableModel, JTable table, int linhaSelecionada){
         JPanel telaCadastrar = new JPanel();
         // Setando layout
         telaCadastrar.setLayout(new GridBagLayout());
@@ -186,11 +186,11 @@ public class JanelaEditaCliente extends JDialog {
         }
 
         //---=| Tratamento de Evento |=---//
-        // Botão cadastrar
+        // Botão editar
         buttonEditar.addActionListener(e ->{
             clientesControl = new ClientesControl(clientes, tableModel, table);
 
-            if(clientesControl.checkClienteCampos(-1, "atualizar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
+            if(clientesControl.checkClienteCampos(linhaSelecionada, "atualizar", cpfInput.getText(), nomeInput.getText(), telefoneInput.getText(), ruaInput.getText(), numeroInput.getText(), cepInput.getText())){
                 // "Resetando" campos
                 cpfInput.setText("");
                 nomeInput.setText("");

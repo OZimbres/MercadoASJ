@@ -55,10 +55,10 @@ public class EstoquesControl {
     }
 
     //---=| DELETE |=---//
-    public void deleteEstoque(int linhaSelecionada, Short codigoProduto) {
+    public void inativarEstoque(int linhaSelecionada, Short codigoProduto) {
         try {
             if(linhaSelecionada != 1){
-                estoquesDAO.delete(codigoProduto);
+                estoquesDAO.inativar(codigoProduto);
                 estoques.remove(linhaSelecionada);
                 
                 atualizarTabela();
@@ -123,10 +123,10 @@ public class EstoquesControl {
             }
         }
         else{
-            int resposta = JOptionPane.showConfirmDialog(null,"Realizar exclusão?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null,"Realizar inativação?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a opção de deletar
-                deleteEstoque(linhaSelecionada, Short.valueOf(codigo.trim()));
+                inativarEstoque(linhaSelecionada, Short.valueOf(codigo.trim()));
             }
         }
         return true;
@@ -134,10 +134,8 @@ public class EstoquesControl {
 
     // Método para validar o formato do CPF
     private boolean validarFormatoCodigo(String codigo) {
-        codigo = codigo.replaceAll("[^0-3]", "");
-        // Remove espaços em branco antes e depois
-        codigo.trim();
-        return codigo.length() == 11;
+        // Verificar se a string tem exatamente 3 dígitos e é um número inteiro
+        return codigo.matches("\\d{3}");
     }
     // Método para validar o formato do preço
     private boolean validarFormatoPreco(String preco) {
@@ -151,19 +149,8 @@ public class EstoquesControl {
     }
     // Método para validar o formato da entrada (máximo 10 caracteres, permitindo números e até 1 letra)
     private boolean validarFormatoQuantidade(String quantidade) {
-        // Remover caracteres que não são dígitos
-        quantidade = quantidade.replaceAll("[^0-9]", "");
-        // Remove espaços em branco antes e depois
-        quantidade.trim();
-        try {
-            // Converter a string para um número inteiro
-            int valor = Integer.parseInt(quantidade);
-            // Verificar se é um número positivo
-            return valor >= 0;
-        } catch (NumberFormatException e) {
-            // Se a conversão falhar, não é um número válido
-            return false;
-        }
+        // Verificar se a string tem exatamente 3 dígitos e é um número inteiro
+    return quantidade.matches("\\d+");
     }
     // Método para validar a quantidade de caracteres
     private boolean validarFormatoDescontoVip(String valor) {

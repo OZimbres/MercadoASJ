@@ -10,7 +10,6 @@ import java.util.List;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -24,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
 
 import main.control.estoque.EstoquesControl;
 
-public class JanelaCadastroEstoque extends JDialog {
+public class JanelaEditaEstoque extends JDialog {
     //-----===| ATRIBUTOS |===-----//
     // Criando componentes
     private JPanel mainPanel = new JPanel();
@@ -66,8 +65,8 @@ public class JanelaCadastroEstoque extends JDialog {
     private JCheckBox statusCheckBox = new JCheckBox("Ativo");
 
     // Botão Cadastrar/Cancelar
-    private JButton buttonCadastrar = new JButton("Cadastrar");
     private JButton buttonCancelar = new JButton("Cancelar");
+    private JButton buttonEditar = new JButton("Editar");
 
     private EstoquesControl estoquesControl;
 
@@ -105,22 +104,35 @@ public class JanelaCadastroEstoque extends JDialog {
 
             //-=| Botões |=-//
             add(buttonCancelar);
-            add(buttonCadastrar);
+            add(buttonEditar);
         }
     };
 
     Insets insets; // Chamando insets para estilização do GridBaglayout
 
     //-----===| CONSTRUTOR |===-----///
-    public JanelaCadastroEstoque(JPanel parent, List<main.model.Estoque> estoques, DefaultTableModel tableModel, JTable table){
-        super((JFrame) SwingUtilities.getWindowAncestor(parent), "Cadastrar Produto", true);
+    public JanelaEditaEstoque(JPanel parent, List<main.model.Estoque> estoques, DefaultTableModel tableModel, JTable table, int linhaSelecionada, String codigo, String nomeProduto, String descricao, String nomeFornecedor, String preco, String quantidade, String desconto, String status){
+        super((JFrame) SwingUtilities.getWindowAncestor(parent), "Editar Produto", true);
         // Adicionando mainPanel ao JFrame
         this.add(mainPanel);
         // Setando layout
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Criando a tela
-        JPanel cadastrar = criarCadastrar(estoques, tableModel, table);
+        JPanel cadastrar = criarEditar(estoques, tableModel, table, linhaSelecionada);
+        // Atribuindo valores pegos aos inputs
+        codigoInput.setText(codigo);
+        nomeProdutoInput.setText(nomeProduto);
+        descricaoInput.setText(descricao);
+        nomeFornecedorInput.setText(nomeFornecedor);
+        precoInput.setText(preco);
+        quantidadeInput.setText(quantidade);
+        descontoVipInput.setText(desconto);
+        if(status.equals("ativo")){
+            statusCheckBox.setSelected(true);
+        }else{
+            statusCheckBox.setSelected(false);
+        }
 
         // Adicionando tela ao Painel de telas
         mainPanel.add(cadastrar);
@@ -134,7 +146,7 @@ public class JanelaCadastroEstoque extends JDialog {
 
     //-----===| MÉTODOS |===-----//
     //---=| Janela Cadastrar |=---//
-    private JPanel criarCadastrar(List<main.model.Estoque> estoques, DefaultTableModel tableModel, JTable table){
+    private JPanel criarEditar(List<main.model.Estoque> estoques, DefaultTableModel tableModel, JTable table, int linhaSelecionada){
         JPanel telaCadastrar = new JPanel();
         // Setando layout
         telaCadastrar.setLayout(new GridBagLayout());
@@ -186,7 +198,7 @@ public class JanelaCadastroEstoque extends JDialog {
             {1, 8, 1, 1, 1, 1, 5, 5, 5, 5}, // checkbox status
 
             {0, 9, 1, 1, 1, 1, 5, 5, 5, 5}, // botão cancelar
-            {1, 9, 1, 1, 1, 1, 5, 5, 5, 5}, // botão cadastrar
+            {1, 9, 1, 1, 1, 1, 5, 5, 5, 5}, // botão editar
         };
 
         // Configurand modelo de exibição
@@ -203,11 +215,11 @@ public class JanelaCadastroEstoque extends JDialog {
         }
 
         //---=| Tratamento de Evento |=---//
-        // Botão cadastrar
-        buttonCadastrar.addActionListener(e ->{
+        // Botão editar
+        buttonEditar.addActionListener(e ->{
             estoquesControl = new EstoquesControl(estoques, tableModel, table);
 
-            if(estoquesControl.checkEstoqueCampos(-1, "cadastrar", codigoInput.getText(), nomeProdutoInput.getText(), descricaoInput.getText(), nomeFornecedorInput.getText(), precoInput.getText(), quantidadeInput.getText(), descontoVipInput.getText(), statusCheckBox.isSelected())){
+            if(estoquesControl.checkEstoqueCampos(linhaSelecionada, "atualizar", codigoInput.getText(), nomeProdutoInput.getText(), descricaoInput.getText(), nomeFornecedorInput.getText(), precoInput.getText(), quantidadeInput.getText(), descontoVipInput.getText(), statusCheckBox.isSelected())){
                 // "Resetando" campos
                 codigoInput.setText("");
                 nomeProdutoInput.setText("");
@@ -223,7 +235,7 @@ public class JanelaCadastroEstoque extends JDialog {
         });
         // Botão cancelar
         buttonCancelar.addActionListener(e -> {
-            int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Cadastro?", "Confirmação", JOptionPane.YES_NO_OPTION);
+            int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
                 // "Resetando" campos
                 codigoInput.setText("");

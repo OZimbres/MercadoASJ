@@ -121,6 +121,10 @@ public class ClientesControl {
         else if(operacao.equals("atualizar")){
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
+                // Evitar problemas de conversão (Long/Integer para String)
+                telefone = (telefone.equals("")) ? "0" : telefone;
+                cep = (cep.equals("")) ? "0" : cep;
+                
                 // Executa a operação de editar
                 updateCliente(linhaSelecionada, Long.valueOf(cpf.trim()), nome.trim(), Long.valueOf(telefone.trim()), rua.trim(), numero.trim(), Integer.valueOf(cep.trim()));
             }

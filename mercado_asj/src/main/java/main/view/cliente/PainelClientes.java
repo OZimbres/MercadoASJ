@@ -107,6 +107,20 @@ public class PainelClientes extends JPanel {
                 String numero = String.valueOf(table.getValueAt(linhaSelecionada, 4));
                 String cep = String.valueOf(table.getValueAt(linhaSelecionada, 5));
 
+                // Evitar problemas
+                if(telefone.equals("Não registrado")){
+                    telefone = "";
+                }
+                if(rua.equals("Não registrado")){
+                    rua = "";
+                }
+                if(numero.equals("Não registrado")){
+                    numero = "";
+                }
+                if(cep.equals("Não registrado")){
+                    cep = "";
+                }
+
                 JanelaEditaCliente janelaEdita = new JanelaEditaCliente(this, clientes, tableModel, table, linhaSelecionada, cpf, nome, telefone, rua, numero, cep);
                 janelaEdita.setVisible(true);
                 clienteInfo.setText("Índice | CPF: | Nome: ");
@@ -149,11 +163,16 @@ public class PainelClientes extends JPanel {
             for (int i = 0; i < clientes.size(); i++) {
                 linha[0] = clientes.get(i).getCpfCliente();
                 linha[1] = clientes.get(i).getNomeCliente();
-                linha[2] = (clientes.get(i).getTelefoneCliente() == 0) ? "" : clientes.get(i).getTelefoneCliente();
-                linha[3] = clientes.get(i).getRuaCliente();
-                linha[4] = clientes.get(i).getNumeroCliente();
-                linha[5] = (clientes.get(i).getCepCliente() == 0) ? "" : clientes.get(i).getCepCliente();
-                tableModel.addRow(linha);
+
+                linha[2] = (clientes.get(i).getTelefoneCliente() == 0) ? "Não registrado" : clientes.get(i).getTelefoneCliente();
+
+                linha[3] = (clientes.get(i).getRuaCliente().equals("")) ? "Não registrado" : clientes.get(i).getNumeroCliente();
+
+                linha[4] = (clientes.get(i).getNumeroCliente().equals("")) ? "Não registrado" : clientes.get(i).getNumeroCliente();
+
+                linha[5] = (clientes.get(i).getCepCliente() == 0) ? "Não registrado" : clientes.get(i).getCepCliente();
+
+                tableModel.insertRow(0, linha);
             }
         } catch (SQLException e) {
             e.printStackTrace();

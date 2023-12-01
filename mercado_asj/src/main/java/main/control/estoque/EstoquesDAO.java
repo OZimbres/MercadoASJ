@@ -28,7 +28,7 @@ public class EstoquesDAO {
         ResultSet resultSet = null; // Objeto que armazena
         estoques = new ArrayList<>();
 
-        String query = "SELECT * FROM Estoques;"; // SQL Query
+        String query = "SELECT * FROM estoque;"; // SQL Query
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try{
             resultSet = preparedStatement.executeQuery();
@@ -154,6 +154,26 @@ public class EstoquesDAO {
             ConnectionFactory.closeConnection(connection);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao excluir: " + ex);
+        } finally {
+            ConnectionFactory.closePreparedStatement(preparedStatement);
+            ConnectionFactory.closeConnection(connection);
+        }
+    }
+    //---=| UPDATE ("DELETE") |=---//
+    public void inativar(Short codigoProduto) throws SQLException {
+        String query = "UPDATE estoque SET status_produto = FALSE WHERE codigo_produto = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try {
+            preparedStatement.setLong(1, codigoProduto);
+            preparedStatement.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Inativado com sucesso!");
+
+            ConnectionFactory.closePreparedStatement(preparedStatement);
+            ConnectionFactory.closeConnection(connection);
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao inativar: " + ex);
         } finally {
             ConnectionFactory.closePreparedStatement(preparedStatement);
             ConnectionFactory.closeConnection(connection);
