@@ -33,7 +33,6 @@ public class ClientesControl {
 
             Cliente cliente = new Cliente(cpfCliente, nomeCliente, telefoneCliente, ruaCliente, numeroCliente, cepCliente);
             clientes.add(cliente);
-
             atualizarTabela();
         } catch (SQLException e) {
             e.printStackTrace();
