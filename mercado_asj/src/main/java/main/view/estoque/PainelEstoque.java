@@ -12,8 +12,6 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-
-import javafx.scene.paint.Color;
 import main.control.EstoquesControl;
 import main.dao.EstoquesDAO;
 import main.model.Estoque;
