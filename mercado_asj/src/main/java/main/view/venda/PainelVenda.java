@@ -76,51 +76,40 @@ public class PainelVenda extends JPanel {
 
     //-----===| MÉTODOS |===-----//
     // Gerar Painel Venda
-    private JPanel criarPainelVenda(){
+    private JPanel criarPainelVenda() {
         JPanel telaPainelVenda = new JPanel();
-        // Setando layout
         telaPainelVenda.setLayout(new GridBagLayout());
-        // Configurando Painel
-        GridBagConstraints elemento = new GridBagConstraints(); // Variável de controle de exibição de cada elemento
-        
-        // "Criar" os JPanels presentes
+        GridBagConstraints elemento = new GridBagConstraints();
+
         jPanelClienteCadastrado = criarClienteCadastrado();
         jPanelResumoPreVenda = criarResumoPreVenda();
         jPanelControleProdutos = criarControleProdutos();
         jPanelListaDetalhada = criarListaDetalhada();
 
-        // ArrayList dos componentes a serem exibidos ("Global")
-        componentesGlobal = new ArrayList<JComponent>(){
-            {
-                add(jPanelClienteCadastrado); // Painel do cliente cadastrado (botão + label)
-                add(jPanelResumoPreVenda); // Painel da barra da direita (label + table + botões)
-                add(jPanelControleProdutos); // Painel do controle de produto (botões + label)
-                add(jPanelListaDetalhada); // Painel da exibição detalhada dos itens da venda
-            }
-        };
-        // Declarando os itens a serem utilizados (sua posição no ArrayList)
-        int[] posicaoNoArrayGlobal = {
-            0, 1, // Cliente Cadastrado + Resumo PreVenda
-            2, // Controle de produto
-            3 // Lista Detalhada
-        };
-        // Declarando os valores de cada Item
+        componentesGlobal = new ArrayList<>(List.of(
+                jPanelClienteCadastrado,
+                jPanelResumoPreVenda,
+                jPanelControleProdutos,
+                jPanelListaDetalhada
+        ));
+
+        int[] posicaoNoArrayGlobal = {0, 1, 2, 3};
         int[][] posicaoComponentesGlobal = {
-            { 0, 0, 2, 1, 1, 1, 0, 0, 0, 0 }, // Cliente Cadastrado
-            { 2, 0, 1, 3, 1, 1, 0, 0, 0, 0 }, // Resumo PreVenda
-            { 0, 1, 2, 1, 1, 1, 0, 0, 0, 0 }, // Controle Produtos
-            { 2, 1, 2, 2, 1, 1, 0, 0, 0, 0 }, // Lista Detalhada
+                {0, 0, 2, 1, 1, 1, 0, 0, 0, 0},
+                {2, 0, 1, 3, 1, 1, 0, 0, 0, 0},
+                {0, 1, 2, 1, 1, 1, 0, 0, 0, 0},
+                {2, 1, 2, 2, 1, 1, 0, 0, 0, 0}
         };
 
-        // Configurand modelo de exibição
-        for (int i = 0; i < 4; i++) { // Menor que 4 pois 4 é a quantidade de item da janela
+        for (int i = 0; i < 4; i++) {
             elemento.gridx = posicaoComponentesGlobal[i][0];
             elemento.gridy = posicaoComponentesGlobal[i][1];
             elemento.gridwidth = posicaoComponentesGlobal[i][2];
             elemento.gridheight = posicaoComponentesGlobal[i][3];
             elemento.weightx = posicaoComponentesGlobal[i][4];
             elemento.weighty = posicaoComponentesGlobal[i][5];
-            elemento.insets = new Insets(posicaoComponentesGlobal[i][6], posicaoComponentesGlobal[i][7], posicaoComponentesGlobal[i][8], posicaoComponentesGlobal[i][9]);
+            elemento.insets = new Insets(posicaoComponentesGlobal[i][6], posicaoComponentesGlobal[i][7],
+                    posicaoComponentesGlobal[i][8], posicaoComponentesGlobal[i][9]);
 
             telaPainelVenda.add(componentesGlobal.get(posicaoNoArrayGlobal[i]), elemento);
         }
@@ -223,47 +212,38 @@ public class PainelVenda extends JPanel {
     }
 
     // Gerar painel Controle de Produto
-    private JPanel criarControleProdutos(){
+    private JPanel criarControleProdutos() {
         JPanel painelControleProdutos = new JPanel();
-        // Setando layout
         painelControleProdutos.setLayout(new GridBagLayout());
-        // Configurando Painel
-        GridBagConstraints elemento = new GridBagConstraints(); // Variável de controle de exibição de cada elemento
+        GridBagConstraints elemento = new GridBagConstraints();
 
-        // ArrayList dos componentes a serem exibidos (ControleProdutos)
-        componentesControleProdutos = new ArrayList<JComponent>(){
-            {
-                add(buttonAdicionarProduto); // Botão pra adicionar produto
-                add(buttonEditarProduto); // Botão pra editar produto
-                add(buttonRemoverProduto); // Botão pra remover produto
-                add(labelInfoControleProdutos); // Label com as info dos produto selecionado
-            }
-        };
-        // Declarando os itens a serem utilizados (sua posição no ArrayList)
-        int[] posicaoNoArrayControleProdutos = {
-            0, 1, 2, // Botões
-            3 // Info produto selecionado
-        };
-        // Declarando os valores de cada Item
+        componentesControleProdutos = new ArrayList<>(List.of(
+                buttonAdicionarProduto,
+                buttonEditarProduto,
+                buttonRemoverProduto,
+                labelInfoControleProdutos
+        ));
+
+        int[] posicaoNoArrayControleProdutos = {0, 1, 2, 3};
         int[][] posicaoComponentesControleProdutos = {
-            { 0, 0, 1, 1, 1, 1, 0, 0, 0, 0 }, // Botão Adicionar
-            { 1, 0, 1, 1, 1, 1, 0, 0, 0, 0 }, // Botão Editar
-            { 2, 0, 1, 1, 1, 1, 0, 0, 0, 0 }, // Botão Remover
-
-            { 0, 0, 3, 1, 1, 1, 0, 0, 0, 0 } // Info
+                {0, 0, 1, 1, 1, 1, 0, 0, 0, 0},
+                {1, 0, 1, 1, 1, 1, 0, 0, 0, 0},
+                {2, 0, 1, 1, 1, 1, 0, 0, 0, 0},
+                {0, 1, 3, 1, 1, 1, 0, 0, 0, 0}
         };
 
-        // Configurand modelo de exibição
-        for (int i = 0; i < 4; i++) { // Menor que 4 pois 4 é a quantidade de item da janela
+        for (int i = 0; i < 4; i++) {
             elemento.gridx = posicaoComponentesControleProdutos[i][0];
             elemento.gridy = posicaoComponentesControleProdutos[i][1];
             elemento.gridwidth = posicaoComponentesControleProdutos[i][2];
             elemento.gridheight = posicaoComponentesControleProdutos[i][3];
             elemento.weightx = posicaoComponentesControleProdutos[i][4];
             elemento.weighty = posicaoComponentesControleProdutos[i][5];
-            elemento.insets = new Insets(posicaoComponentesControleProdutos[i][6], posicaoComponentesControleProdutos[i][7], posicaoComponentesControleProdutos[i][8], posicaoComponentesControleProdutos[i][9]);
+            elemento.insets = new Insets(posicaoComponentesControleProdutos[i][6],
+                    posicaoComponentesControleProdutos[i][7], posicaoComponentesControleProdutos[i][8],
+                    posicaoComponentesControleProdutos[i][9]);
 
-            painelControleProdutos.add(componentesResumoPreVenda.get(posicaoNoArrayControleProdutos[i]), elemento);
+            painelControleProdutos.add(componentesControleProdutos.get(posicaoNoArrayControleProdutos[i]), elemento);
         }
 
         return painelControleProdutos;

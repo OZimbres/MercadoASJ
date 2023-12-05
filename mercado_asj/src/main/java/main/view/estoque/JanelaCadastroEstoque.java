@@ -206,6 +206,7 @@ public class JanelaCadastroEstoque extends JDialog {
         // Botão cadastrar
         buttonCadastrar.addActionListener(e ->{
             estoquesControl = new EstoquesControl(estoques, tableModel, table);
+            
 
             if(estoquesControl.checkEstoqueCampos(-1, "cadastrar", codigoInput.getText(), nomeProdutoInput.getText(), descricaoInput.getText(), nomeFornecedorInput.getText(), precoInput.getText(), quantidadeInput.getText(), descontoVipInput.getText(), statusCheckBox.isSelected())){
                 // "Resetando" campos
