@@ -13,7 +13,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import javafx.scene.paint.Color;
 import main.control.EstoquesControl;
 import main.dao.EstoquesDAO;
 import main.model.Estoque;
@@ -136,8 +135,8 @@ public class PainelEstoque extends JPanel {
                 JanelaEditaEstoque janelaEdita = new JanelaEditaEstoque(this, estoqueProdutos, tableModel, table, linhaSelecionada, codigo, nomeProduto, descricao, nomeFornecedor, preco, quantidade, desconto, status);
                 janelaEdita.setVisible(true);
                 // "Resetando"
-                produtoInfo.setText("Índice | Código: | Nome: | Quantidade: | Preço: | Status: ");
                 atualizarTabela(String.valueOf(modoExibicaoComboBox.getSelectedItem()));
+                produtoInfo.setText("Índice | Código: | Nome: | Quantidade: | Preço: | Status: ");
                 linhaSelecionada = -1; 
             }
         });

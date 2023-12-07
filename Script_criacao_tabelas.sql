@@ -15,7 +15,7 @@ insert into funcionarios(cpf_funcionario, nome_funcionario, cep_funcionario, sen
 select * from funcionarios;
 
 create table estoque(
-	codigo_produto DECIMAL(3,0) not null,
+	codigo_produto VARCHAR(3) not null,
 	nome_produto VARCHAR(300) not null,
 	descricao_produto VARCHAR(1000) not null,
 	nome_fornecedor VARCHAR(300) not null,

@@ -2,7 +2,7 @@ package main.model;
 
 public class Estoque {
     //-----===| ATRIBUTOS |===-----//
-    private Short codigoProduto;
+    private String codigoProduto;
     private String nomeProduto;
     private String descricaoProduto;
     private String nomeFornecedor;
@@ -14,7 +14,7 @@ public class Estoque {
     //-----===| CONSTRUTOR |===-----//
     public Estoque() {}
 
-    public Estoque(Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
+    public Estoque(String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         this.codigoProduto = codigoProduto;
         this.nomeProduto = nomeProduto;
         this.descricaoProduto = descricaoProduto;
@@ -26,10 +26,10 @@ public class Estoque {
     }
 
     //-----===| GETTERS & SETTERS |===-----//
-    public Short getCodigoProduto() {
+    public String getCodigoProduto() {
         return codigoProduto;
     }
-    public void setCodigoProduto(Short codigoProduto) {
+    public void setCodigoProduto(String codigoProduto) {
         this.codigoProduto = codigoProduto;
     }
 

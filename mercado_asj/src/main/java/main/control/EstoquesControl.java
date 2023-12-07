@@ -26,7 +26,7 @@ public class EstoquesControl {
 
     //-----===| MÉTODOS CRUD |===-----//
     // ---=| CREATE |=---//
-    public void createEstoque(Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
+    public void createEstoque(String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         try {
             estoquesDAO.create(codigoProduto, nomeProduto, descricaoProduto, nomeFornecedor, precoProduto, quantidadeProduto, descontoVip, statusProduto);
 
@@ -40,7 +40,7 @@ public class EstoquesControl {
     }
 
     //---=| UPDATE |=---//
-    public void updateEstoque(int linhaSelecionada, Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
+    public void updateEstoque(int linhaSelecionada, String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         if (linhaSelecionada != -1) {
             try {
                 estoquesDAO.update(codigoProduto, nomeProduto, descricaoProduto, nomeFornecedor, precoProduto, quantidadeProduto, descontoVip, statusProduto);
@@ -56,7 +56,7 @@ public class EstoquesControl {
     }
 
     //---=| DELETE |=---//
-    public void inativarEstoque(int linhaSelecionada, Short codigoProduto) {
+    public void inativarEstoque(int linhaSelecionada, String codigoProduto) {
         try {
             if(linhaSelecionada != 1){
                 estoquesDAO.inativar(codigoProduto);
@@ -113,21 +113,21 @@ public class EstoquesControl {
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar cadastro?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a operação de cadastrar
-                createEstoque(Short.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
+                createEstoque(String.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
             }
         }
         else if(operacao.equals("atualizar")){
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a operação de editar
-                updateEstoque(linhaSelecionada, Short.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
+                updateEstoque(linhaSelecionada, String.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
             }
         }
         else{
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar inativação?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a opção de deletar
-                inativarEstoque(linhaSelecionada, Short.valueOf(codigo.trim()));
+                inativarEstoque(linhaSelecionada, String.valueOf(codigo.trim()));
             }
         }
         return true;

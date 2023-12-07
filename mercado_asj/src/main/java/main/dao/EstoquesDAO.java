@@ -35,7 +35,7 @@ public class EstoquesDAO {
 
             // Loop para armazenar as informações do resultSet para a List<Estoque>
             while(resultSet.next()){
-                Estoque estoque = new Estoque(resultSet.getShort("codigo_produto"), resultSet.getString("nome_produto"), resultSet.getString("descricao_produto"), resultSet.getString("nome_fornecedor"), resultSet.getDouble("preco_produto"), resultSet.getInt("quantidade_produto"), resultSet.getDouble("desconto_vip_produto"), resultSet.getBoolean("status_produto")); // Instanciando Estoque com as informações obtidas pela query
+                Estoque estoque = new Estoque(resultSet.getString("codigo_produto"), resultSet.getString("nome_produto"), resultSet.getString("descricao_produto"), resultSet.getString("nome_fornecedor"), resultSet.getDouble("preco_produto"), resultSet.getInt("quantidade_produto"), resultSet.getDouble("desconto_vip_produto"), resultSet.getBoolean("status_produto")); // Instanciando Estoque com as informações obtidas pela query
 
                 estoques.add(estoque); // Adicionando objetos instanciados à lista
             }
@@ -52,7 +52,7 @@ public class EstoquesDAO {
     }
 
     //---=| READ |=---//
-    public Estoque read(Short codigoProduto) throws SQLException {
+    public Estoque read(String codigoProduto) throws SQLException {
         ResultSet resultSet = null; // Objeto que armazena
         Estoque estoque;
 
@@ -60,13 +60,13 @@ public class EstoquesDAO {
         
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
-            preparedStatement.setLong(1, codigoProduto);
+            preparedStatement.setString(1, codigoProduto);
 
             resultSet = preparedStatement.executeQuery();
             // Loop para armazenar as informações do resultSet para a List<Estoque>
 
             if(resultSet.next()){
-                estoque = new Estoque(resultSet.getShort("codigo_produto"), resultSet.getString("nome_produto"), resultSet.getString("descricao_produto"), resultSet.getString("nome_fornecedor"), resultSet.getDouble("preco_produto"), resultSet.getInt("quantidade_produto"), resultSet.getDouble("desconto_vip_produto"), resultSet.getBoolean("status_produto")); // Instanciando Estoque com as informações obtidas pela query
+                estoque = new Estoque(resultSet.getString("codigo_produto"), resultSet.getString("nome_produto"), resultSet.getString("descricao_produto"), resultSet.getString("nome_fornecedor"), resultSet.getDouble("preco_produto"), resultSet.getInt("quantidade_produto"), resultSet.getDouble("desconto_vip_produto"), resultSet.getBoolean("status_produto")); // Instanciando Estoque com as informações obtidas pela query
 
                 return estoque;
             }
@@ -84,12 +84,12 @@ public class EstoquesDAO {
     }
 
     //---=| CREATE |=---//
-    public void create(Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) throws SQLException {
+    public void create(String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) throws SQLException {
         String query = "INSERT INTO estoque (codigo_produto, nome_produto, descricao_produto, nome_fornecedor, preco_produto, quantidade_produto, desconto_vip_produto, status_produto) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
-            preparedStatement.setLong(1, codigoProduto);
+            preparedStatement.setString(1, codigoProduto);
             preparedStatement.setString(2, nomeProduto);
             preparedStatement.setString(3, descricaoProduto);
             preparedStatement.setString(4, nomeFornecedor);
@@ -112,7 +112,7 @@ public class EstoquesDAO {
     }
 
     //---=| UPDATE |=---//
-    public void update(Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) throws SQLException {
+    public void update(String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) throws SQLException {
         String query = "UPDATE estoque SET nome_produto = ?, descricao_produto = ?, nome_fornecedor = ?, preco_produto = ?, quantidade_produto = ?, desconto_vip_produto = ?, status_produto = ? WHERE codigo_produto = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -124,7 +124,7 @@ public class EstoquesDAO {
             preparedStatement.setInt(5, quantidadeProduto);
             preparedStatement.setDouble(6, descontoVip);
             preparedStatement.setBoolean(7, statusProduto);
-            preparedStatement.setShort(8, codigoProduto);
+            preparedStatement.setString(8, codigoProduto);
             preparedStatement.execute();
 
             JOptionPane.showMessageDialog(null, "Atualizado com sucesso!");
@@ -140,12 +140,12 @@ public class EstoquesDAO {
     }
 
     //---=| DELETE |=---//
-    public void delete(Short codigoProduto) throws SQLException {
+    public void delete(String codigoProduto) throws SQLException {
         String query = "DELETE FROM estoque WHERE codigo_produto = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
-            preparedStatement.setLong(1, codigoProduto);
+            preparedStatement.setString(1, codigoProduto);
             preparedStatement.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Excluido com sucesso!");
@@ -160,12 +160,12 @@ public class EstoquesDAO {
         }
     }
     //---=| UPDATE ("DELETE") |=---//
-    public void inativar(Short codigoProduto) throws SQLException {
+    public void inativar(String codigoProduto) throws SQLException {
         String query = "UPDATE estoque SET status_produto = FALSE WHERE codigo_produto = ?";
 
         PreparedStatement preparedStatement = connection.prepareStatement(query);
         try {
-            preparedStatement.setLong(1, codigoProduto);
+            preparedStatement.setString(1, codigoProduto);
             preparedStatement.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Inativado com sucesso!");
