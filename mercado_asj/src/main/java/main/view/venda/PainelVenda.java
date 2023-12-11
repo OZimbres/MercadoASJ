@@ -1,14 +1,9 @@
 package main.view.venda;
 
-import java.awt.ScrollPane;
-
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.BorderFactory;
-import javax.swing.GroupLayout;
-import javax.swing.LayoutStyle;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.Component;
 
 import main.model.Estoque;
 
@@ -28,33 +23,35 @@ public class PainelVenda extends JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
-        JPanel panelCLiente = new JPanel();
-        JLabel labelClienteTitulo = new JLabel();
-        JTextField inputCpfCliente = new JTextField();
-        JLabel labelCpfCliente = new JLabel();
-        JLabel labelInfoCliente = new JLabel();
-        JButton btnProcurarCliente = new JButton();
-        JButton btnAdicionarCliente = new JButton();
-        JPanel panelProduto = new JPanel();
-        JTextField inputCodProduto = new JTextField();
-        JLabel labelProdutoTitulo = new JLabel();
-        JLabel labelInfoProduto = new JLabel();
-        JButton btnProcurarProduto = new JButton();
-        JLabel labelCodProduto = new JLabel();
-        JLabel labelQtd = new JLabel();
-        JTextField inputQuantidade = new JTextField();
-        JButton btnMaisQtd = new JButton();
-        JButton btnMenosQtd = new JButton();
-        JButton btnAdicionarProduto = new JButton();
-        ScrollPane scrollPanelFull = new ScrollPane();
-        JPanel panelCompraResumida = new JPanel();
-        JButton btnCancelarCompra = new JButton();
-        JButton btnConfirmarCompra = new JButton();
-        JLabel labelClienteSelecionado = new JLabel();
-        JLabel labelInfoClienteSelecionado = new JLabel();
-        ScrollPane scrollPaneCompraResumida = new ScrollPane();
+        painelCompra = new javax.swing.JPanel();
+        panelCLiente = new javax.swing.JPanel();
+        labelClienteTitulo = new javax.swing.JLabel();
+        inputCpfCliente = new javax.swing.JTextField();
+        labelCpfCliente = new javax.swing.JLabel();
+        labelInfoCliente = new javax.swing.JLabel();
+        btnProcurarCliente = new javax.swing.JButton();
+        btnAdicionarCliente = new javax.swing.JButton();
+        panelProduto = new javax.swing.JPanel();
+        inputCodProduto = new javax.swing.JTextField();
+        labelProdutoTitulo = new javax.swing.JLabel();
+        labelInfoProduto = new javax.swing.JLabel();
+        btnProcurarProduto = new javax.swing.JButton();
+        labelCodProduto = new javax.swing.JLabel();
+        labelQtd = new javax.swing.JLabel();
+        inputQuantidade = new javax.swing.JTextField();
+        btnMaisQtd = new javax.swing.JButton();
+        btnMenosQtd = new javax.swing.JButton();
+        btnAdicionarProduto = new javax.swing.JButton();
+        scrollPaneFull = new javax.swing.JScrollPane();
+        panelCompraResumida = new javax.swing.JPanel();
+        btnCancelarCompra = new javax.swing.JButton();
+        btnConfirmarCompra = new javax.swing.JButton();
+        labelClienteSelecionado = new javax.swing.JLabel();
+        labelInfoClienteSelecionado = new javax.swing.JLabel();
+        scrollPaneCompraResumida = new javax.swing.JScrollPane();
 
-        panelCLiente.setBorder(BorderFactory.createLineBorder(null));
+        panelCLiente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelCLiente.setPreferredSize(new java.awt.Dimension(350, 89));
 
         labelClienteTitulo.setText("Cliente VIP");
 
@@ -85,47 +82,48 @@ public class PainelVenda extends JPanel {
             }
         });
 
-        GroupLayout panelCLienteLayout = new GroupLayout(panelCLiente);
+        javax.swing.GroupLayout panelCLienteLayout = new javax.swing.GroupLayout(panelCLiente);
         panelCLiente.setLayout(panelCLienteLayout);
         panelCLienteLayout.setHorizontalGroup(
-            panelCLienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            panelCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCLienteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelCLienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                .addGroup(panelCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCLienteLayout.createSequentialGroup()
-                        .addComponent(labelInfoCliente, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
+                        .addComponent(labelInfoCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(btnAdicionarCliente))
                     .addGroup(panelCLienteLayout.createSequentialGroup()
-                        .addGroup(panelCLienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(panelCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelClienteTitulo)
                             .addGroup(panelCLienteLayout.createSequentialGroup()
                                 .addComponent(labelCpfCliente)
                                 .addGap(9, 9, 9)
-                                .addComponent(inputCpfCliente, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProcurarCliente)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelCLienteLayout.setVerticalGroup(
-            panelCLienteLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, panelCLienteLayout.createSequentialGroup()
+            panelCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCLienteLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelClienteTitulo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCLienteLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputCpfCliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCpfCliente)
                     .addComponent(btnProcurarCliente))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCLienteLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCLienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelInfoCliente)
                     .addComponent(btnAdicionarCliente))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelProduto.setBorder(BorderFactory.createLineBorder(null));
+        panelProduto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelProduto.setPreferredSize(new java.awt.Dimension(350, 111));
 
         inputCodProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,61 +167,82 @@ public class PainelVenda extends JPanel {
         btnAdicionarProduto.setForeground(new java.awt.Color(255, 255, 255));
         btnAdicionarProduto.setText("Adicionar");
 
-        GroupLayout panelProdutoLayout = new GroupLayout(panelProduto);
+        javax.swing.GroupLayout panelProdutoLayout = new javax.swing.GroupLayout(panelProduto);
         panelProduto.setLayout(panelProdutoLayout);
         panelProdutoLayout.setHorizontalGroup(
-            panelProdutoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProdutoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelProdutoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(labelInfoProduto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelInfoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelProdutoLayout.createSequentialGroup()
-                        .addGroup(panelProdutoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelProdutoTitulo)
                             .addGroup(panelProdutoLayout.createSequentialGroup()
                                 .addComponent(labelCodProduto)
                                 .addGap(9, 9, 9)
-                                .addComponent(inputCodProduto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inputCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProcurarProduto)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelProdutoLayout.createSequentialGroup()
                         .addComponent(labelQtd)
                         .addGap(8, 8, 8)
                         .addComponent(btnMenosQtd)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(inputQuantidade, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnMaisQtd)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAdicionarProduto)))
                 .addContainerGap())
         );
         panelProdutoLayout.setVerticalGroup(
-            panelProdutoLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelProdutoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelProdutoTitulo)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProdutoLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputCodProduto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputCodProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCodProduto)
                     .addComponent(btnProcurarProduto))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoProduto)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelProdutoLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputQuantidade, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelProdutoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelQtd)
                     .addComponent(btnMaisQtd)
                     .addComponent(btnMenosQtd)
                     .addComponent(btnAdicionarProduto))
-                .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        scrollPanelFull.setBackground(new java.awt.Color(204, 204, 204));
+        javax.swing.GroupLayout painelCompraLayout = new javax.swing.GroupLayout(painelCompra);
+        painelCompra.setLayout(painelCompraLayout);
+        painelCompraLayout.setHorizontalGroup(
+            painelCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelCLiente, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+            .addComponent(panelProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+            .addComponent(scrollPaneFull)
+        );
+        painelCompraLayout.setVerticalGroup(
+            painelCompraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCompraLayout.createSequentialGroup()
+                .addComponent(panelCLiente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneFull, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+        );
 
-        panelCompraResumida.setBorder(BorderFactory.createLineBorder(null));
+        tableModel = new DefaultTableModel(new Object[][] {}, new String[] {"COD", "Nome", "Descrição", "Preço U.", "Desconto VIP"}); // "Desenhando" organização da tabela com o tableModel
+        table = new JTable(tableModel); // Declarando a tabela com o estilo definido no tableModel
+        scrollPaneFull.setViewportView(table);
+
+        panelCompraResumida.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        panelCompraResumida.setPreferredSize(new java.awt.Dimension(280, 500));
 
         btnCancelarCompra.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelarCompra.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
@@ -249,67 +268,58 @@ public class PainelVenda extends JPanel {
 
         labelInfoClienteSelecionado.setText("__________kk________");
 
-        GroupLayout panelCompraResumidaLayout = new GroupLayout(panelCompraResumida);
+        javax.swing.GroupLayout panelCompraResumidaLayout = new javax.swing.GroupLayout(panelCompraResumida);
         panelCompraResumida.setLayout(panelCompraResumidaLayout);
         panelCompraResumidaLayout.setHorizontalGroup(
-            panelCompraResumidaLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            panelCompraResumidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCompraResumidaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelCompraResumidaLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneCompraResumida, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelCompraResumidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneCompraResumida)
                     .addGroup(panelCompraResumidaLayout.createSequentialGroup()
-                        .addComponent(btnCancelarCompra, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelarCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnConfirmarCompra, GroupLayout.DEFAULT_SIZE, 94, Short.MAX_VALUE))
+                        .addComponent(btnConfirmarCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                     .addGroup(panelCompraResumidaLayout.createSequentialGroup()
-                        .addGroup(panelCompraResumidaLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                        .addGroup(panelCompraResumidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelClienteSelecionado)
                             .addComponent(labelInfoClienteSelecionado))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelCompraResumidaLayout.setVerticalGroup(
-            panelCompraResumidaLayout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, panelCompraResumidaLayout.createSequentialGroup()
+            panelCompraResumidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCompraResumidaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelClienteSelecionado)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelInfoClienteSelecionado)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneCompraResumida, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCompraResumidaLayout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneCompraResumida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCompraResumidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelarCompra)
                     .addComponent(btnConfirmarCompra))
                 .addContainerGap())
         );
 
-        GroupLayout layout = new GroupLayout(this);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelCLiente, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelProduto, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(scrollPanelFull, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelCompraResumida, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(painelCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelCompraResumida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-            .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelCompraResumida, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelCLiente, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelProduto, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(scrollPanelFull, GroupLayout.PREFERRED_SIZE, 235, GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelCompraResumida, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
+                    .addComponent(painelCompra, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }
@@ -349,4 +359,35 @@ public class PainelVenda extends JPanel {
     private void btnProcurarClienteMouseClicked(java.awt.event.MouseEvent evt) {                                                
         // TODO add your handling code here:
     }
+
+    // Variables declaration - do not modify
+    private JTable table;
+    private DefaultTableModel tableModel;        
+    private javax.swing.JButton btnAdicionarCliente;
+    private javax.swing.JButton btnAdicionarProduto;
+    private javax.swing.JButton btnCancelarCompra;
+    private javax.swing.JButton btnConfirmarCompra;
+    private javax.swing.JButton btnMaisQtd;
+    private javax.swing.JButton btnMenosQtd;
+    private javax.swing.JButton btnProcurarCliente;
+    private javax.swing.JButton btnProcurarProduto;
+    private javax.swing.JTextField inputCodProduto;
+    private javax.swing.JTextField inputCpfCliente;
+    private javax.swing.JTextField inputQuantidade;
+    private javax.swing.JLabel labelClienteSelecionado;
+    private javax.swing.JLabel labelClienteTitulo;
+    private javax.swing.JLabel labelCodProduto;
+    private javax.swing.JLabel labelCpfCliente;
+    private javax.swing.JLabel labelInfoCliente;
+    private javax.swing.JLabel labelInfoClienteSelecionado;
+    private javax.swing.JLabel labelInfoProduto;
+    private javax.swing.JLabel labelProdutoTitulo;
+    private javax.swing.JLabel labelQtd;
+    private javax.swing.JPanel painelCompra;
+    private javax.swing.JPanel panelCLiente;
+    private javax.swing.JPanel panelCompraResumida;
+    private javax.swing.JPanel panelProduto;
+    private javax.swing.JScrollPane scrollPaneCompraResumida;
+    private javax.swing.JScrollPane scrollPaneFull;
+    // End of variables declaration
 }
