@@ -39,6 +39,16 @@ public class EstoquesControl {
         }
     }
 
+    //---=| READ |=---//
+    public Estoque readEstoque(String codigoProduto){
+        try {
+            return estoquesDAO.read(codigoProduto);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //---=| UPDATE |=---//
     public void updateEstoque(int linhaSelecionada, String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         if (linhaSelecionada != -1) {
@@ -52,6 +62,13 @@ public class EstoquesControl {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    public void updateEstoque(String codigoProduto, Integer quantidadeProduto){
+        try {
+            estoquesDAO.updateEmVenda(codigoProduto, quantidadeProduto);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

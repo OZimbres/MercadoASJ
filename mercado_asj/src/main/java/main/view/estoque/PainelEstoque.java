@@ -92,7 +92,6 @@ public class PainelEstoque extends JPanel {
                     String nome = String.valueOf(table.getValueAt(linhaSelecionada, 1));
                     String quantidade = String.valueOf(table.getValueAt(linhaSelecionada, 5));
                     String preco = String.valueOf(table.getValueAt(linhaSelecionada, 4));
-                    String desconto = String.valueOf(table.getValueAt(linhaSelecionada, 6));
                     String status = String.valueOf(table.getValueAt(linhaSelecionada, 7));
                     
                     produtoInfo.setText("Índice "+ linhaSelecionada +" | Código: "+ codigo +" | Nome: "+ nome +" | Quantidade: "+ quantidade +" | Preço: "+ preco +" | Status: "+ status);

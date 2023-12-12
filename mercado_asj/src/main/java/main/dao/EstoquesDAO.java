@@ -71,6 +71,7 @@ public class EstoquesDAO {
                 return estoque;
             }
             else{
+                JOptionPane.showMessageDialog(null, "Produto não encontrado");
                 return null;
             }
         } catch (SQLException ex) {
@@ -133,6 +134,24 @@ public class EstoquesDAO {
             ConnectionFactory.closeConnection(connection);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
+        } finally {
+            ConnectionFactory.closePreparedStatement(preparedStatement);
+            ConnectionFactory.closeConnection(this.connection);
+        }
+    }
+
+    public void updateEmVenda(String codigoProduto, Integer quantidadeProduto) throws SQLException{
+        String query = "UPDATE estoque SET quantidade_produto = ? WHERE codigo_produto = ?;";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        try{
+            preparedStatement.setInt(1, quantidadeProduto);
+            preparedStatement.setString(2, codigoProduto);
+            preparedStatement.execute();
+
+            System.out.println("Produto debitado do estoque com sucesso!");
+        } catch (SQLException ex) {
+            System.out.println("Erro ao debitar do banco: " + ex);
         } finally {
             ConnectionFactory.closePreparedStatement(preparedStatement);
             ConnectionFactory.closeConnection(this.connection);

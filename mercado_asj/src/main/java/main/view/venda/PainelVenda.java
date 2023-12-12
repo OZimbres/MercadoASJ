@@ -1,10 +1,15 @@
 package main.view.venda;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Component;
+import java.sql.SQLException;
+import java.util.List;
 
+import main.control.EstoquesControl;
+import main.dao.EstoquesDAO;
 import main.model.Estoque;
 
 public class PainelVenda extends JPanel {
@@ -12,6 +17,7 @@ public class PainelVenda extends JPanel {
      * Creates new form Global
      */
     public PainelVenda() {
+        atualizarEstoque();
         initComponents();
     }
 
@@ -73,6 +79,7 @@ public class PainelVenda extends JPanel {
         btnSelecionarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnBuscarCliente.setText("Buscar");
+        btnBuscarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         javax.swing.GroupLayout jPanelClienteLayout = new javax.swing.GroupLayout(jPanelCliente);
         jPanelCliente.setLayout(jPanelClienteLayout);
@@ -137,6 +144,7 @@ public class PainelVenda extends JPanel {
         labelProdutoQtd.setText("QTD:");
 
         btnMenosProdutoQtd.setText("-");
+        btnMenosProdutoQtd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         inputProdutoQtd.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         inputProdutoQtd.setText("0");
@@ -149,6 +157,7 @@ public class PainelVenda extends JPanel {
         });
 
         btnMaisProdutoQtd.setText("+");
+        btnMaisProdutoQtd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnMaisProdutoQtd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMaisProdutoQtdActionPerformed(evt);
@@ -161,6 +170,13 @@ public class PainelVenda extends JPanel {
         btnAdicionarProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
         btnBuscarProduto.setText("Buscar");
+        btnBuscarProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        // Events
+        btnBuscarProduto.addActionListener(e -> {
+            estoqueControl = new EstoquesControl(estoqueProdutos, tableModelFull, tableFull);
+            Estoque produtoTemp = estoqueControl.readEstoque(inputProdutoCod.getText());
+            labelProdutoInfo.setText("CÓD: "+produtoTemp.getCodigoProduto()+" | Produto: "+produtoTemp.getNomeProduto()+" | P.U.: "+produtoTemp.getPrecoProduto()+" | D.VIP:"+produtoTemp.getDescontoVip());
+        });
 
         javax.swing.GroupLayout jPanelProdutoLayout = new javax.swing.GroupLayout(jPanelProduto);
         jPanelProduto.setLayout(jPanelProdutoLayout);
@@ -242,9 +258,9 @@ public class PainelVenda extends JPanel {
         );
 
         // Adicionando Tabel para visualizar itens no COMPRA FULL
-        tableModel = new DefaultTableModel(new Object[][] {}, new String[] {"COD", "Produto", "Descrição", "P.U.", "Desconto VIP", "Quantidade"}); // "Desenhando" organização da tabela com o tableModel
-        table = new JTable(tableModel); // Declarando a tabela com o estilo definido no tableModel
-        jScrollPaneCompraFull.setViewportView(table);
+        tableModelFull = new DefaultTableModel(new Object[][] {}, new String[] {"COD", "Produto", "Descrição", "P.U.", "Desconto VIP", "Quantidade"}); // "Desenhando" organização da tabela com o tableModel
+        tableFull = new JTable(tableModelFull); // Declarando a tabela com o estilo definido no tableModel
+        jScrollPaneCompraFull.setViewportView(tableFull);
 
         jPanelCompraResumida.setBackground(new java.awt.Color(255, 255, 255));
         jPanelCompraResumida.setPreferredSize(new java.awt.Dimension(203, 100));
@@ -367,9 +383,9 @@ public class PainelVenda extends JPanel {
         );
 
         // Adicionando Tabel para visualizar itens no COMPRA RESUMIDA
-        tableModel = new DefaultTableModel(new Object[][] {}, new String[] {"QTD", "Produto"}); // "Desenhando" organização da tabela com o tableModel
-        table = new JTable(tableModel); // Declarando a tabela com o estilo definido no tableModel
-        jScrollPaneCompraResumida.setViewportView(table);
+        tableModelResumida = new DefaultTableModel(new Object[][] {}, new String[] {"QTD", "Produto"}); // "Desenhando" organização da tabela com o tableModel
+        tableResumida = new JTable(tableModelResumida); // Declarando a tabela com o estilo definido no tableModel
+        jScrollPaneCompraResumida.setViewportView(tableResumida);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -388,6 +404,8 @@ public class PainelVenda extends JPanel {
                 .addContainerGap()
                 .addComponent(jPanelCompraResumida, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))
         );
+
+        
     }// </editor-fold>                        
 
     private void inputProdutoCodActionPerformed(java.awt.event.ActionEvent evt) {                                                
@@ -424,8 +442,10 @@ public class PainelVenda extends JPanel {
     private javax.swing.JPanel jPanelInfoCompraResumida;
     private javax.swing.JPanel jPanelProduto;
     private javax.swing.JScrollPane jScrollPaneCompraFull;
-    private javax.swing.JTable table;
-    private javax.swing.table.DefaultTableModel tableModel;
+    private javax.swing.JTable tableFull;
+    private javax.swing.table.DefaultTableModel tableModelFull;
+    private javax.swing.JTable tableResumida;
+    private javax.swing.table.DefaultTableModel tableModelResumida;
     private javax.swing.JScrollPane jScrollPaneCompraResumida;
     private javax.swing.JLabel labelCVipCompraResumida;
     private javax.swing.JLabel labelClienteInfo;
@@ -436,5 +456,49 @@ public class PainelVenda extends JPanel {
     private javax.swing.JLabel labelProdutoQtd;
     private javax.swing.JLabel labelProdutoTitulo;
     private javax.swing.JLabel labelTotalCompraResumida;
+    // Control
+    private EstoquesControl estoqueControl;
+    // Listas
+    private List<Estoque> estoqueProdutos; // Lista TODOS Produtos
+    private List<Estoque> produtosCompra; // Lista Produtos COMPRA
     // End of variables declaration
+
+    //-----===| MÉTODOS |===-----//
+    private void atualizarEstoque() {
+        try {
+            estoqueProdutos = new EstoquesDAO().readAll();
+            Object linha[] = new Object[8];
+
+            for (int i = 0; i < estoqueProdutos.size(); i++) {
+                linha[0] = estoqueProdutos.get(i).getCodigoProduto();
+                linha[1] = estoqueProdutos.get(i).getNomeProduto();
+                linha[2] = estoqueProdutos.get(i).getDescricaoProduto();
+                linha[3] = estoqueProdutos.get(i).getNomeFornecedor();
+                linha[4] = estoqueProdutos.get(i).getPrecoProduto();
+                linha[5] = estoqueProdutos.get(i).getQuantidadeProduto();
+                linha[6] = estoqueProdutos.get(i).getDescontoVip();
+                linha[7] = (estoqueProdutos.get(i).getStatusProduto()) ? "ativo" : "inativo";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void atualizarCompra(){
+        tableModelFull.setRowCount(0);
+        Object linha[] = new Object[8];
+
+        for(int i = 0; i < produtosCompra.size(); i++){
+            linha[0] = produtosCompra.get(i).getCodigoProduto();
+            linha[1] = produtosCompra.get(i).getNomeProduto();
+            linha[2] = produtosCompra.get(i).getDescricaoProduto();
+            linha[3] = produtosCompra.get(i).getNomeFornecedor();
+            linha[4] = produtosCompra.get(i).getPrecoProduto();
+            linha[5] = produtosCompra.get(i).getQuantidadeProduto();
+            linha[6] = produtosCompra.get(i).getDescontoVip();
+            linha[7] = (produtosCompra.get(i).getStatusProduto()) ? "ativo" : "inativo";
+            tableModelFull.addRow(linha);
+        }
+    }
+
 }
