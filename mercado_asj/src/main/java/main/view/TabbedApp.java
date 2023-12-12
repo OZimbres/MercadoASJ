@@ -25,8 +25,8 @@ public class TabbedApp extends JTabbedPane {
                 this.add("Estoque", painelEstoque);
                 this.add("Funcionários", painelFuncionarios);
             case "operador":
-                this.add("Clientes", painelClientes);
                 this.add("Venda", painelVenda);
+                this.add("Clientes", painelClientes);
             default:
                 break;
         }
