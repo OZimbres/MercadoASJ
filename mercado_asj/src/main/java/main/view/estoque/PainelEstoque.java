@@ -12,10 +12,6 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-<<<<<<< HEAD
-=======
-
->>>>>>> ffc8ebf391960e402d0d7dc61066f63586d90489
 import main.control.EstoquesControl;
 import main.dao.EstoquesDAO;
 import main.model.Estoque;
