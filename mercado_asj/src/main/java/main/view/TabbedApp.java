@@ -18,22 +18,22 @@ public class TabbedApp extends JTabbedPane {
     public TabbedApp(Login logado) {
         super();
         //painelCarros = new PainelCarros(logado);
-        //painelVendas = new PainelVendas(logado);
+        //painelVenda = new PainelVenda();
         //this.add("Carros", painelCarros);
         switch (logado.getNivelAcesso()) {
             case "gerente":
                 this.add("Estoque", painelEstoque);
                 this.add("Funcionários", painelFuncionarios);
             case "operador":
-                this.add("Clientes", painelClientes);
                 this.add("Venda", painelVenda);
+                this.add("Clientes", painelClientes);
             default:
                 break;
         }
         //this.add("Venda", painelVendas);
 
         this.addChangeListener(e -> {
-            //painelVendas.atualizarClientesComboBox();
+            //painelVenda.atualizarEstoque();
             //painelVendas.atualizarCarrosComboBox();
             //painelCarros.atualizarPainelCarros();
         });
