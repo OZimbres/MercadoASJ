@@ -56,6 +56,9 @@ public class EstoquesDAO {
         ResultSet resultSet = null; // Objeto que armazena
         Estoque estoque;
 
+        // Por ser uma consulta realizada frequentemente, vai abrir toda vez
+        connection = ConnectionFactory.getConnection();
+
         String query = "SELECT * FROM estoque WHERE codigo_produto = ?;"; // SQL Query
         
         PreparedStatement preparedStatement = connection.prepareStatement(query);
