@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import main.dao.EstoquesDAO;
 import main.model.Estoque;
+import main.view.venda.PainelVenda;
 
 public class EstoquesControl {
     //-----===| ATRIBUTOS |===-----//
@@ -26,7 +27,7 @@ public class EstoquesControl {
 
     //-----===| MÉTODOS CRUD |===-----//
     // ---=| CREATE |=---//
-    public void createEstoque(Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
+    public void createEstoque(String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         try {
             estoquesDAO.create(codigoProduto, nomeProduto, descricaoProduto, nomeFornecedor, precoProduto, quantidadeProduto, descontoVip, statusProduto);
 
@@ -34,13 +35,27 @@ public class EstoquesControl {
             estoques.add(estoque);
 
             atualizarTabela();
+
+            // Atualizar o "estoque temporario"
+            PainelVenda painelVenda = new PainelVenda();
+            painelVenda.atualizarEstoque();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    //---=| READ |=---//
+    public Estoque readEstoque(String codigoProduto) throws SQLException{
+        try {
+            return estoquesDAO.read(codigoProduto);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     //---=| UPDATE |=---//
-    public void updateEstoque(int linhaSelecionada, Short codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
+    public void updateEstoque(int linhaSelecionada, String codigoProduto, String nomeProduto, String descricaoProduto, String nomeFornecedor, Double precoProduto, Integer quantidadeProduto, Double descontoVip, Boolean statusProduto) {
         if (linhaSelecionada != -1) {
             try {
                 estoquesDAO.update(codigoProduto, nomeProduto, descricaoProduto, nomeFornecedor, precoProduto, quantidadeProduto, descontoVip, statusProduto);
@@ -49,20 +64,41 @@ public class EstoquesControl {
                 estoques.set(linhaSelecionada, estoque);
     
                 atualizarTabela();
+
+                // Atualizar o "estoque temporario"
+                PainelVenda painelVenda = new PainelVenda();
+                painelVenda.atualizarEstoque();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
     }
+    public void updateEstoque(String codigoProduto, Integer quantidadeProduto){
+        try {
+            estoquesDAO.updateEmVenda(codigoProduto, quantidadeProduto);
+
+            atualizarTabela();
+
+            // Atualizar o "estoque temporario"
+            PainelVenda painelVenda = new PainelVenda();
+            painelVenda.atualizarEstoque();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     //---=| DELETE |=---//
-    public void inativarEstoque(int linhaSelecionada, Short codigoProduto) {
+    public void inativarEstoque(int linhaSelecionada, String codigoProduto) {
         try {
             if(linhaSelecionada != 1){
                 estoquesDAO.inativar(codigoProduto);
                 estoques.remove(linhaSelecionada);
                 
                 atualizarTabela();
+
+                // Atualizar o "estoque temporario"
+                PainelVenda painelVenda = new PainelVenda();
+                painelVenda.atualizarEstoque();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -113,21 +149,25 @@ public class EstoquesControl {
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar cadastro?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a operação de cadastrar
-                createEstoque(Short.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
+                createEstoque(String.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
             }
         }
         else if(operacao.equals("atualizar")){
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a operação de editar
-                updateEstoque(linhaSelecionada, Short.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
+                updateEstoque(linhaSelecionada, String.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
             }
         }
-        else{
+        else if(operacao.equals("venda")){
+            // Operação de remover uma X quantia do estoque
+            updateEstoque(codigo.trim(), Integer.valueOf(quantidade));
+        }
+        else {
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar inativação?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a opção de deletar
-                inativarEstoque(linhaSelecionada, Short.valueOf(codigo.trim()));
+                inativarEstoque(linhaSelecionada, String.valueOf(codigo.trim()));
             }
         }
         return true;

@@ -15,7 +15,7 @@ insert into funcionarios(cpf_funcionario, nome_funcionario, cep_funcionario, sen
 select * from funcionarios;
 
 create table estoque(
-	codigo_produto DECIMAL(3,0) not null,
+	codigo_produto VARCHAR(3) not null,
 	nome_produto VARCHAR(300) not null,
 	descricao_produto VARCHAR(1000) not null,
 	nome_fornecedor VARCHAR(300) not null,
@@ -42,8 +42,8 @@ insert into clientes (cpf_cliente, nome_cliente) values
 
 create table vendas(
 	id_venda SERIAL not null,
-	cpf_cliente_venda DECIMAL(11,0) not null,
-	codigo_produto_venda DECIMAL(3,0) not null,
+	cpf_cliente_venda DECIMAL(11,0),
+	codigo_produto_venda VARCHAR(3) not null,
 	quantidade_produto_venda DECIMAL(6,0) not null,
 	preco_venda DECIMAL(12,2) not null,
 	metodo_pagamento_venda VARCHAR(100) not null,

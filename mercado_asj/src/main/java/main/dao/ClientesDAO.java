@@ -56,6 +56,9 @@ public class ClientesDAO {
         ResultSet resultSet = null; // Objeto que armazena
         Cliente cliente;
 
+        // Por ser uma consulta realizada frequentemente, vai abrir toda vez
+        connection = ConnectionFactory.getConnection();
+
         String query = "SELECT * FROM clientes WHERE cpf_cliente = ?;"; // SQL Query
         
         PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -71,6 +74,7 @@ public class ClientesDAO {
                 return cliente;
             }
             else{
+                JOptionPane.showMessageDialog(null, "Cliente não encontrado!");
                 return null;
             }
         } catch (SQLException ex) {

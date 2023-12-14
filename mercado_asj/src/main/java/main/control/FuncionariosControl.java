@@ -30,11 +30,9 @@ public class FuncionariosControl {
             String ruaFuncionario, String numeroFuncionario, Integer cepFuncionario, String senhaFuncionario,
             String nivelAcessoFuncionario) {
         try {
-            funcionariosDAO.create(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario,
-                    numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
+            funcionariosDAO.create(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
 
-            Funcionario funcionario = new Funcionario(cpfFuncionario, nomeFuncionario, telefoneFuncionario,
-                    ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
+            Funcionario funcionario = new Funcionario(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);
             funcionarios.add(funcionario);
 
             atualizarTabela();
@@ -44,9 +42,7 @@ public class FuncionariosControl {
     }
 
     // ---=| UPDATE |=---//
-    public void updateFuncionario(int linhaSelecionada, Long cpfFuncionario, String nomeFuncionario,
-            Long telefoneFuncionario, String ruaFuncionario, String numeroFuncionario, Integer cepFuncionario,
-            String senhaFuncionario, String nivelAcessoFuncionario) {
+    public void updateFuncionario(int linhaSelecionada, Long cpfFuncionario, String nomeFuncionario, Long telefoneFuncionario, String ruaFuncionario, String numeroFuncionario, Integer cepFuncionario, String senhaFuncionario, String nivelAcessoFuncionario) {
         if (linhaSelecionada != -1) {
             try {
                 funcionariosDAO.update(cpfFuncionario, nomeFuncionario, telefoneFuncionario, ruaFuncionario, numeroFuncionario, cepFuncionario, senhaFuncionario, nivelAcessoFuncionario);

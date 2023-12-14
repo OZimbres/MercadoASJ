@@ -13,7 +13,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
-import javafx.scene.paint.Color;
 import main.control.EstoquesControl;
 import main.dao.EstoquesDAO;
 import main.model.Estoque;
@@ -93,7 +92,6 @@ public class PainelEstoque extends JPanel {
                     String nome = String.valueOf(table.getValueAt(linhaSelecionada, 1));
                     String quantidade = String.valueOf(table.getValueAt(linhaSelecionada, 5));
                     String preco = String.valueOf(table.getValueAt(linhaSelecionada, 4));
-                    String desconto = String.valueOf(table.getValueAt(linhaSelecionada, 6));
                     String status = String.valueOf(table.getValueAt(linhaSelecionada, 7));
                     
                     produtoInfo.setText("Índice "+ linhaSelecionada +" | Código: "+ codigo +" | Nome: "+ nome +" | Quantidade: "+ quantidade +" | Preço: "+ preco +" | Status: "+ status);
@@ -136,8 +134,8 @@ public class PainelEstoque extends JPanel {
                 JanelaEditaEstoque janelaEdita = new JanelaEditaEstoque(this, estoqueProdutos, tableModel, table, linhaSelecionada, codigo, nomeProduto, descricao, nomeFornecedor, preco, quantidade, desconto, status);
                 janelaEdita.setVisible(true);
                 // "Resetando"
-                produtoInfo.setText("Índice | Código: | Nome: | Quantidade: | Preço: | Status: ");
                 atualizarTabela(String.valueOf(modoExibicaoComboBox.getSelectedItem()));
+                produtoInfo.setText("Índice | Código: | Nome: | Quantidade: | Preço: | Status: ");
                 linhaSelecionada = -1; 
             }
         });
@@ -189,7 +187,7 @@ public class PainelEstoque extends JPanel {
                         linha[1] = estoqueProdutos.get(i).getNomeProduto();
                         linha[2] = estoqueProdutos.get(i).getDescricaoProduto();
                         linha[3] = estoqueProdutos.get(i).getNomeFornecedor();
-                        linha[4] = estoqueProdutos.get(i).getPrecoProduto();
+                        linha[4] = String.format("%,.2f", estoqueProdutos.get(i).getPrecoProduto()).replaceAll("[.]", "").replace(",", ".");
                         linha[5] = estoqueProdutos.get(i).getQuantidadeProduto();
                         linha[6] = estoqueProdutos.get(i).getDescontoVip();
                         linha[7] = "ativo";

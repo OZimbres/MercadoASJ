@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 
 import main.dao.ClientesDAO;
 import main.model.Cliente;
+import main.model.Estoque;
 
 public class ClientesControl {
     //-----===| ATRIBUTOS |===-----//
@@ -37,6 +38,16 @@ public class ClientesControl {
             atualizarTabela();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    //---=| READ |=---//
+    public Cliente readCliente(Long cpfCliente){
+        try {
+            return clientesDAO.read(cpfCliente);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 
