@@ -39,7 +39,16 @@
 <p align="left">
    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=440&size=22&pause=1000&color=38F77CFF&center=false&vCenter=false&repeat=false&width=435&lines=Telas e Visuais 👋" alt="Typing SVG" /></a>
    <p>
-      <img src="assets/estoque">
+      <p>Tela de Estoque</p>
+      <img src="assets/estoque.png">
+      <p>Tela de Clientes</p>
+      <img src="assets/clientes.png">
+      <p>Tela de Funcionarios</p>
+      <img src="assets/funcionarios.png">
+      <p>Tela de Vendas</p>
+      <img src="assets/venda.png">
+      <p>Tela de Cadastro/Edição de infomações</p>
+      <img src="assets/cadastro tela.png">
    </p>
 </p> <br><br>
 
