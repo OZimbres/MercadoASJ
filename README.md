@@ -40,15 +40,15 @@
    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=440&size=22&pause=1000&color=38F77CFF&center=false&vCenter=false&repeat=false&width=435&lines=Telas e Visuais 👋" alt="Typing SVG" /></a>
    <p>
       <p>Tela de Estoque</p>
-      <img src="assets/estoque.png">
+      <img src="assets/estoque.png" width="250" height="250">
       <p>Tela de Clientes</p>
-      <img src="assets/clientes.png">
+      <img src="assets/clientes.png" width="250" height="250">
       <p>Tela de Funcionarios</p>
-      <img src="assets/funcionarios.png">
+      <img src="assets/funcionarios.png" width="250" height="250">
       <p>Tela de Vendas</p>
-      <img src="assets/venda.png">
+      <img src="assets/venda.png" width="250" height="250">
       <p>Tela de Cadastro/Edição de infomações</p>
-      <img src="assets/cadastro tela.png">
+      <img src="assets/cadastro tela.png" width="250" height="250">
    </p>
 </p> <br><br>
 
