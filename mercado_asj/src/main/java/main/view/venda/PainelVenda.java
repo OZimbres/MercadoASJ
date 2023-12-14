@@ -566,6 +566,8 @@ public class PainelVenda extends JPanel {
 
     
             // "Resentando"
+            inputCpfCliente.setText("");
+            labelClienteInfo.setText("Nome:");
             produtosCompra = null;
             produtosCompra = new java.util.ArrayList<Estoque>();
             estoqueControl = null;

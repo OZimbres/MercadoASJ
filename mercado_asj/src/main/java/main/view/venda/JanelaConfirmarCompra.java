@@ -52,7 +52,7 @@ public class JanelaConfirmarCompra extends JFrame {
         jLabelTitulo = new javax.swing.JLabel();
         jPanelClienteVip = new javax.swing.JPanel();
         jLabelClienteVipTitulo = new javax.swing.JLabel();
-        jLabelClienteVipInfo = new javax.swing.JLabel();
+        jLabelClienteVipInfo = new javax.swing.JLabel(clienteInfo);
         jScrollPane = new javax.swing.JScrollPane();
         jPanelMetodoDePagamento = new javax.swing.JPanel();
         jLabelMetodoDePagamento = new javax.swing.JLabel();
