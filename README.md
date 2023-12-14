@@ -31,9 +31,6 @@
 
 <p align="left">
    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=440&size=22&pause=1000&color=38F77CFF&center=false&vCenter=false&repeat=false&width=435&lines=Etapa 1 - Briefing 📝" alt="Typing SVG" /></a>
-   <p alignn="left">
-       <img src="Docs/imgs/briefing.webp" width="400px" alt="Typing SVG" />
-   </p>
 
    ### - O briefing é um `documento que servirá como um guia para a execução de um projeto`. Ele contém uma série de informações como: dados sobre a empresa, o mercado em que ela atua, o público ao qual ela se direciona e os seus objetivos com o projeto.
 
@@ -59,14 +56,9 @@
   </thead>
   <tbody>
     <tr>
-      <td align="center"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML Badge"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS Badge"/> </td>
+      <td align="center"> <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML Badge"/> <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="CSS Badge"/> </td>
     </tr>
-    <tr>
-      <td align="center"> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript Badge" style="width: 100%"/> </td>
-    </tr>
-    <tr>
-      <td align="center"> <img  width="100" height="30"; src="https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white" alt="PHP badge"/> </td>
-    </tr>
+    
   </tbody>
 </table>
    </p>
@@ -114,7 +106,6 @@
 
 * ### IA's Usadas:
     - [ChatGPT 3.5](https://chat.openai.com/)
-    - [Bing - Image Creator](https://www.bing.com/images/create)
 
 
 <hr>
