@@ -5,8 +5,6 @@
 <p align="center">
    <img src="https://img.shields.io/badge/Backend-FAZENDO-blue?style=for-the-badge" alt="backend" />
   <img src="https://img.shields.io/badge/Documentação-FAZENDO-blue?style=for-the-badge" alt="documentação" />
-  <img src="https://img.shields.io/badge/Mobile-FAZENDO-blue?style=for-the-badge" alt="mobile" />
-  <img src="https://img.shields.io/badge/Site-FAZENDO-blue?style=for-the-badge" alt="site" />
 </p>
 <hr>
 <br>
