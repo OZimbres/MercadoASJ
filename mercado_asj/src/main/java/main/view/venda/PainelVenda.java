@@ -473,14 +473,18 @@ public class PainelVenda extends JPanel {
     }
 
     private void btnBuscarProduto(java.awt.event.ActionEvent evt){
-        if(inputProdutoCod.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Insira um código");
-        } else {
-            estoqueControl = new EstoquesControl(estoqueProdutos, tableModelFull, tableFull);
-            Estoque produtoTemp = estoqueControl.readEstoque(inputProdutoCod.getText());
-            if (produtoTemp != null) {
-                labelProdutoInfo.setText("CÓD: "+produtoTemp.getCodigoProduto()+" | Produto: "+produtoTemp.getNomeProduto()+" | P.U.: "+String.format("%,.2f", produtoTemp.getPrecoProduto()).replaceAll("[.]", "")+" | D.VIP: "+produtoTemp.getDescontoVip() +" | QTD: "+produtoTemp.getQuantidadeProduto());
+        try{
+            if(inputProdutoCod.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Insira um código");
+            } else {
+                estoqueControl = new EstoquesControl(estoqueProdutos, tableModelFull, tableFull);
+                Estoque produtoTemp = estoqueControl.readEstoque(inputProdutoCod.getText());
+                if (produtoTemp != null) {
+                    labelProdutoInfo.setText("CÓD: "+produtoTemp.getCodigoProduto()+" | Produto: "+produtoTemp.getNomeProduto()+" | P.U.: "+String.format("%,.2f", produtoTemp.getPrecoProduto()).replaceAll("[.]", "")+" | D.VIP: "+produtoTemp.getDescontoVip() +" | QTD: "+produtoTemp.getQuantidadeProduto());
+                }
             }
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro: "+ ex);
         }
     }  
     private void btnMenosProdutoQtdActionPerformed(java.awt.event.ActionEvent evt){                          
@@ -492,41 +496,47 @@ public class PainelVenda extends JPanel {
         inputProdutoQtd.setText(String.valueOf(Integer.valueOf(inputProdutoQtd.getText()) + 1));
     }    
     private void btnAdicionarProduto(java.awt.event.ActionEvent evt){
-        String codProdutoTemp;
-        // Padrão Regex para pedar o código do prodyuto selecionado
-        Pattern pattern = Pattern.compile("CÓD: (-?\\d+)\\s*\\|");
-        // Criando um Matcher que corresponde ao padrão na entrada
-        Matcher matcher = pattern.matcher(labelProdutoInfo.getText());
-        if(matcher.find()){
-            codProdutoTemp = matcher.group(1);
-            Estoque produtoTemp = estoqueControl.readEstoque(codProdutoTemp);
-
-            if(produtoTemp != null & Integer.valueOf(inputProdutoQtd.getText()) >= 1){
-                if(produtoTemp.getQuantidadeProduto() >= Integer.valueOf(inputProdutoQtd.getText())){
-                    // Alterando informações específicas (Quantidade)
-                    produtoTemp.setQuantidadeProduto(Integer.valueOf(inputProdutoQtd.getText())); // QTD
-                    produtosCompra.add(produtoTemp);
+        try{
+            String codProdutoTemp;
+            // Padrão Regex para pedar o código do prodyuto selecionado
+            Pattern pattern = Pattern.compile("CÓD: (-?\\d+)\\s*\\|");
+            // Criando um Matcher que corresponde ao padrão na entrada
+            Matcher matcher = pattern.matcher(labelProdutoInfo.getText());
+            if(matcher.find()){
+                codProdutoTemp = matcher.group(1);
+                Estoque produtoTemp = estoqueControl.readEstoque(codProdutoTemp);
     
-                    inputProdutoCod.setText("");
-                    labelProdutoInfo.setText("CÓD: | Produto: | P.U.: | D.VIP: | QTD:");
-                    inputProdutoQtd.setText("1");
-                    labelProdutoQtd.setText("QTD:");
-    
-                    atualizarCompra();
+                if(produtoTemp != null & Integer.valueOf(inputProdutoQtd.getText()) >= 1){
+                    if(produtoTemp.getQuantidadeProduto() >= Integer.valueOf(inputProdutoQtd.getText())){
+                        // Alterando informações específicas (Quantidade)
+                        produtoTemp.setQuantidadeProduto(Integer.valueOf(inputProdutoQtd.getText())); // QTD
+                        produtosCompra.add(produtoTemp);
+        
+                        inputProdutoCod.setText("");
+                        labelProdutoInfo.setText("CÓD: | Produto: | P.U.: | D.VIP: | QTD:");
+                        inputProdutoQtd.setText("1");
+                        labelProdutoQtd.setText("QTD:");
+        
+                        atualizarCompra();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Quantidade extrapola estoque!");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Quantidade extrapola estoque!");
+                    JOptionPane.showMessageDialog(null, "Quantidade inválida!");
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Quantidade inválida!");
+                JOptionPane.showMessageDialog(null, "Insira um produto!");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Insira um produto!");
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(null, "Erro: "+ ex);
         }
     }    
     
     private void btnCancelarCompraResumida(java.awt.event.ActionEvent evt){
         int resposta = JOptionPane.showConfirmDialog(null,"Cancelar compra?", "Cancelamento", JOptionPane.YES_NO_OPTION);
         if (resposta == JOptionPane.YES_OPTION) {
+            inputCpfCliente.setText("");
+            labelClienteInfo.setText("Nome:");
             produtosCompra = null;
             produtosCompra = new java.util.ArrayList<Estoque>();
             estoqueControl = null;
@@ -540,15 +550,27 @@ public class PainelVenda extends JPanel {
     }
     private void btnConcluirCompraResumida(java.awt.event.ActionEvent evt){
         if(checarQuantidadeVendaEstoque()){
-            // Abrindo janela
-            JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(this, estoqueProdutos, tableModelFull, tableFull, labelClienteInfo.getText(), produtosCompra);
-            janelaConfirmarCompra.setVisible(true);
+            // Padrão Regex para pedar o código do prodyuto selecionado
+            Pattern pattern = Pattern.compile("CPF: (-?\\d+)\\s*\\|");
+            // Criando um Matcher que corresponde ao padrão na entrada
+            Matcher matcher = pattern.matcher(labelClienteInfo.getText());
+            if(matcher.find()){
+                // Abrindo janela
+                JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(estoqueProdutos, tableModelFull, tableFull, labelClienteInfo.getText(), labelTotalCompraResumida.getText(), produtosCompra);
+                janelaConfirmarCompra.setVisible(true);
+            } else {
+                // Abrindo janela
+                JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(estoqueProdutos, tableModelFull, tableFull, "", labelTotalCompraResumida.getText(), produtosCompra);
+                janelaConfirmarCompra.setVisible(true);
+            }
+
     
             // "Resentando"
             produtosCompra = null;
             produtosCompra = new java.util.ArrayList<Estoque>();
             estoqueControl = null;
             jLabelPrecoCompraResumida.setText("0.00");
+            atualizarEstoque();
             atualizarCompra();
         } else{
             JOptionPane.showMessageDialog(null, "Quantia extrapola estoque!");
