@@ -337,6 +337,11 @@ public class PainelVenda extends JPanel {
         btnConcluirCompraResumida.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         btnConcluirCompraResumida.setText("Concluir");
         btnConcluirCompraResumida.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnConcluirCompraResumida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcluirCompraResumida(evt);
+            }
+        });
 
         btnCancelarCompraResumida.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelarCompraResumida.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
@@ -474,7 +479,7 @@ public class PainelVenda extends JPanel {
             estoqueControl = new EstoquesControl(estoqueProdutos, tableModelFull, tableFull);
             Estoque produtoTemp = estoqueControl.readEstoque(inputProdutoCod.getText());
             if (produtoTemp != null) {
-                labelProdutoInfo.setText("CÓD: "+produtoTemp.getCodigoProduto()+" | Produto: "+produtoTemp.getNomeProduto()+" | P.U.: "+produtoTemp.getPrecoProduto()+" | D.VIP: "+produtoTemp.getDescontoVip() +" | QTD: "+produtoTemp.getQuantidadeProduto());
+                labelProdutoInfo.setText("CÓD: "+produtoTemp.getCodigoProduto()+" | Produto: "+produtoTemp.getNomeProduto()+" | P.U.: "+String.format("%,.2f", produtoTemp.getPrecoProduto()).replaceAll("[.]", "")+" | D.VIP: "+produtoTemp.getDescontoVip() +" | QTD: "+produtoTemp.getQuantidadeProduto());
             }
         }
     }  
@@ -534,8 +539,46 @@ public class PainelVenda extends JPanel {
         labelCVipCompraResumida.setText("Cliente VIP");
     }
     private void btnConcluirCompraResumida(java.awt.event.ActionEvent evt){
-        JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(this, estoqueProdutos, tableModelFull, tableFull, labelClienteInfo.getText(), produtosCompra);
-        janelaConfirmarCompra.setVisible(true);
+        if(checarQuantidadeVendaEstoque()){
+            // Abrindo janela
+            JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(this, estoqueProdutos, tableModelFull, tableFull, labelClienteInfo.getText(), produtosCompra);
+            janelaConfirmarCompra.setVisible(true);
+    
+            // "Resentando"
+            produtosCompra = null;
+            produtosCompra = new java.util.ArrayList<Estoque>();
+            estoqueControl = null;
+            jLabelPrecoCompraResumida.setText("0.00");
+            atualizarCompra();
+        } else{
+            JOptionPane.showMessageDialog(null, "Quantia extrapola estoque!");
+        }
+    }
+
+    private boolean checarQuantidadeVendaEstoque(){
+        try {
+            estoqueControl = new EstoquesControl(estoqueProdutos, tableModelFull, tableFull);
+            
+            LOOP_VERIFICAR_QUANTIDADE_VALIDA:
+            for (Estoque produto : produtosCompra) {
+                Integer quantidadeEmEstoque = estoqueControl.readEstoque(produto.getCodigoProduto()).getQuantidadeProduto();
+
+                Integer quantidadeEmCompra = produto.getQuantidadeProduto();
+
+                Integer quantidadeSobrando = quantidadeEmEstoque - quantidadeEmCompra;
+
+                if(quantidadeSobrando >= 0){
+                    estoqueControl.readEstoque(produto.getCodigoProduto()).setQuantidadeProduto(quantidadeSobrando);
+                } else {
+                    break LOOP_VERIFICAR_QUANTIDADE_VALIDA;
+                }
+            }
+
+            return true;
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro: "+ ex);
+            return false;
+        }
     }
 
 
@@ -584,7 +627,7 @@ public class PainelVenda extends JPanel {
     // End of variables declaration
 
     //-----===| MÉTODOS |===-----//
-    private void atualizarEstoque() {
+    public void atualizarEstoque() {
         try {
             estoqueProdutos = new EstoquesDAO().readAll();
             Object linha[] = new Object[8];
@@ -615,7 +658,7 @@ public class PainelVenda extends JPanel {
                 linha[0] = produtosCompra.get(i).getCodigoProduto();
                 linha[1] = produtosCompra.get(i).getNomeProduto();
                 linha[2] = produtosCompra.get(i).getDescricaoProduto();
-                linha[3] = produtosCompra.get(i).getPrecoProduto();
+                linha[3] = String.format("%,.2f", produtosCompra.get(i).getPrecoProduto()).replaceAll("[.]", "").replace(",", ".");
                 linha[4] = produtosCompra.get(i).getDescontoVip();
                 linha[5] = produtosCompra.get(i).getQuantidadeProduto();
                 tableModelFull.addRow(linha);

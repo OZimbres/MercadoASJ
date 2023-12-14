@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import main.dao.EstoquesDAO;
 import main.model.Estoque;
+import main.view.venda.PainelVenda;
 
 public class EstoquesControl {
     //-----===| ATRIBUTOS |===-----//
@@ -34,13 +35,17 @@ public class EstoquesControl {
             estoques.add(estoque);
 
             atualizarTabela();
+
+            // Atualizar o "estoque temporario"
+            PainelVenda painelVenda = new PainelVenda();
+            painelVenda.atualizarEstoque();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     //---=| READ |=---//
-    public Estoque readEstoque(String codigoProduto){
+    public Estoque readEstoque(String codigoProduto) throws SQLException{
         try {
             return estoquesDAO.read(codigoProduto);
         } catch (SQLException e) {
@@ -59,6 +64,10 @@ public class EstoquesControl {
                 estoques.set(linhaSelecionada, estoque);
     
                 atualizarTabela();
+
+                // Atualizar o "estoque temporario"
+                PainelVenda painelVenda = new PainelVenda();
+                painelVenda.atualizarEstoque();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -67,6 +76,12 @@ public class EstoquesControl {
     public void updateEstoque(String codigoProduto, Integer quantidadeProduto){
         try {
             estoquesDAO.updateEmVenda(codigoProduto, quantidadeProduto);
+
+            atualizarTabela();
+
+            // Atualizar o "estoque temporario"
+            PainelVenda painelVenda = new PainelVenda();
+            painelVenda.atualizarEstoque();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -80,6 +95,10 @@ public class EstoquesControl {
                 estoques.remove(linhaSelecionada);
                 
                 atualizarTabela();
+
+                // Atualizar o "estoque temporario"
+                PainelVenda painelVenda = new PainelVenda();
+                painelVenda.atualizarEstoque();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,7 +159,11 @@ public class EstoquesControl {
                 updateEstoque(linhaSelecionada, String.valueOf(codigo.trim()), nomeProduto.trim(), descricao.trim(), nomeFornecedor.trim(), Double.valueOf(preco.trim()), Integer.valueOf(quantidade.trim()), Double.valueOf(descontoVip.trim()), status);
             }
         }
-        else{
+        else if(operacao.equals("venda")){
+            // Operação de remover uma X quantia do estoque
+            updateEstoque(codigo.trim(), Integer.valueOf(quantidade));
+        }
+        else {
             int resposta = JOptionPane.showConfirmDialog(null,"Realizar inativação?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if (resposta == JOptionPane.YES_OPTION) {
                 // Executa a opção de deletar

@@ -4,28 +4,36 @@ import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import main.control.EstoquesControl;
+import main.dao.EstoquesDAO;
+import main.model.Estoque;
 
 public class JanelaConfirmarCompra extends JDialog {
     //-----===| ATRIBUTOS |===-----//
-    // Criando componentes
+    // CONTROL
+    private EstoquesControl estoquesControl;
+
+    //-----===| Criando componentes |===-----//
     private JPanel mainPanel = new JPanel();
 
     //---=| Cadastro |=---//
@@ -33,77 +41,51 @@ public class JanelaConfirmarCompra extends JDialog {
     private JLabel tituloJanela = new JLabel("Confirmar Compra");
 
     // Cliente VIP
-    private JLabel labelClienteVipInfo = new JLabel("Cliente VIP:");
+    private JLabel labelClienteVipTitulo = new JLabel("Cliente VIP:");
+    private JLabel labelClienteVipInfo = new JLabel("");
 
-    // Nome produto
-    private JLabel nomeProdutoLabel = new JLabel("Nome Produto:");
-    private JTextField nomeProdutoInput = new JTextField(20);
+    // Tabela resumindo Compra
+    private JScrollPane scrollPane = new JScrollPane();
+    private List<Estoque> produtosCompra;
+    private JTable table;
+    private DefaultTableModel tableModel;
 
-    // Descricao Produto
-    private JLabel descricaoLabel = new JLabel("Descricao Produto:");
-    private JTextField descricaoInput = new JTextField(20);
+    // Preço / Preço com DESCONTO
+    private JLabel totalPreco = new JLabel("0.00");
+    private JLabel totalPrecoDesconto = new JLabel("");
 
-    // Nome Fornecedor produto
-    private JLabel nomeFornecedorLabel = new JLabel("Nome Fornecedor:");
-    private JTextField nomeFornecedorInput = new JTextField(20);
-
-    // Preco produto
-    private JLabel precoLabel = new JLabel("Preço Individual:");
-    private JTextField precoInput = new JTextField(20);
-
-    // Quantidade produto
-    private JLabel quantidadeLabel = new JLabel("Quantidade:");
-    private JTextField quantidadeInput = new JTextField(20);
-
-    // Desconto VIP produto
-    private JLabel descontoVipLabel = new JLabel("Desconto VIP:");
-    private JTextField descontoVipInput = new JTextField(20);
-
-    // Status produto
-    private JLabel statusLabel = new JLabel("Status:");
-    private JCheckBox statusCheckBox = new JCheckBox("Ativo");
+    // Método de Pagamento
+    private JLabel labelMetodoDePagamento = new JLabel("Método de pagamento");
+    private JComboBox<String> metodoDePagamentoComboBox = new JComboBox<>();
 
     // Botão Cadastrar/Cancelar
     private JButton buttonCancelar = new JButton("Cancelar");
-    private JButton buttonEditar = new JButton("Editar");
-
-    private EstoquesControl estoquesControl;
+    private JButton buttonComprar = new JButton("Comprar");
 
     // ArrayList dos componentes a serem exibidos
     ArrayList<JComponent> componentes = new ArrayList<JComponent>(){
         {
             //-=| Título |=-//
-            add(tituloCadastro);
+            add(tituloJanela);
 
-            //-=| Campos |=-//
-            // Código produto
-            add(codigoLabel);
-            add(codigoInput);
-            // Nome produto
-            add(nomeProdutoLabel);
-            add(nomeProdutoInput);
-            // Descrica produto
-            add(descricaoLabel);
-            add(descricaoInput);
-            // Nome fornecedor
-            add(nomeFornecedorLabel);
-            add(nomeFornecedorInput);
-            // Preco produto
-            add(precoLabel);
-            add(precoInput);
-            // Quantidade produto
-            add(quantidadeLabel);
-            add(quantidadeInput);
-            // Desconto VIP produto
-            add(descontoVipLabel);
-            add(descontoVipInput);
-            // Status produto
-            add(statusLabel);
-            add(statusCheckBox);
+            //-=| Cliente |=-//
+            add(labelClienteVipTitulo);
+            add(labelClienteVipInfo);
+
+            //-=| ScrollPane |=-//
+            add(scrollPane);
+
+            //-=| Preço |=-//
+            add(totalPreco);
+            add(totalPrecoDesconto);
+
+            //-=| Método de Pagamento |=-//
+            add(labelMetodoDePagamento);
+            add(metodoDePagamentoComboBox);
 
             //-=| Botões |=-//
             add(buttonCancelar);
-            add(buttonEditar);
+            add(buttonComprar);
         }
     };
 
@@ -118,23 +100,10 @@ public class JanelaConfirmarCompra extends JDialog {
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         // Criando a tela
-        JPanel comprar = criarJanela(estoques, tableModel, table);
-        // Atribuindo valores pegos aos inputs
-        codigoInput.setText(codigo);
-        nomeProdutoInput.setText(nomeProduto);
-        descricaoInput.setText(descricao);
-        nomeFornecedorInput.setText(nomeFornecedor);
-        precoInput.setText(produtosCompra.get);
-        quantidadeInput.setText(quantidade);
-        descontoVipInput.setText(desconto);
-        if(status.equals("ativo")){
-            statusCheckBox.setSelected(true);
-        }else{
-            statusCheckBox.setSelected(false);
-        }
+        JPanel comprar = criarJanela(produtosCompra, tableModel, table, estoques);
 
         // Adicionando tela ao Painel de telas
-        mainPanel.add(cadastrar);
+        mainPanel.add(comprar);
 
         //---=| Setando o Frame |=---//
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -145,12 +114,13 @@ public class JanelaConfirmarCompra extends JDialog {
 
     //-----===| MÉTODOS |===-----//
     //---=| Janela Cadastrar |=---//
-    private JPanel criarEditar(List<main.model.Estoque> estoques, DefaultTableModel tableModel, JTable table, int linhaSelecionada){
-        JPanel telaCadastrar = new JPanel();
+    private JPanel criarJanela(List<main.model.Estoque> produtosCompra, DefaultTableModel tableModel, JTable table, List<Estoque> estoqueProdutos){
+        JPanel telaComprar = new JPanel();
         // Setando layout
-        telaCadastrar.setLayout(new GridBagLayout());
-        // Setando Background
-        telaCadastrar.setBackground(Color.DARK_GRAY);
+        telaComprar.setLayout(new GridBagLayout());
+        // Setando aparência básica
+        telaComprar.setBackground(Color.DARK_GRAY);
+        telaComprar.setForeground(Color.WHITE);
 
         // Configurando Painel
         GridBagConstraints elemento = new GridBagConstraints(); // Variável de controle de exibição de cada elemento
@@ -158,50 +128,31 @@ public class JanelaConfirmarCompra extends JDialog {
         // Declarando os itens a serem utilizados (sua posição no ArrayList)
         int[] posicaoNoArray = {
             0, // Título
-            1, 2, // Codigo Produto
-            3, 4, // Nome Produto
-            5, 6, // Descricao produto
-            7, 8, // Nome Fornecedor
-            9, 10, // Preco Produto
-            11, 12, // Quantidade Produto
-            13, 14, // Desconto VIP
-            15, 16, // Status Produto
-            17, 18 // Botões
+            1, // Cliente VIP Título
+            2, // Cliente VIP Info
+            3, // ScrollPane
+            4, // Total Preço
+            5, // Total Preço Desconto VIP
+            6, 7 // Botões
         };
         // Declarando os valores de cada item
         int[][] posicaoComponentes = {
-            {0, 0, 2, 1, 2, 1, 5, 5, 5, 5}, // Título Login
+            {0, 0, 2, 1, 2, 1, 5, 5, 5, 5}, // Título
 
-            {0, 1, 1, 1, 1, 1, 5, 5, 5, 5}, // label codigo
-            {1, 1, 1, 1, 1, 1, 5, 5, 5, 5}, // input codigo
+            {0, 1, 2, 1, 2, 1, 5, 5, 5, 5}, // Cliente VIP Título
+            {0, 2, 2, 1, 2, 1, 5, 5, 5, 5}, // Cliente VIP Info
 
-            {0, 2, 1, 1, 1, 1, 5, 5, 5, 5}, // label nome produto
-            {1, 2, 1, 1, 1, 1, 5, 5, 5, 5}, // input nome produto
+            {0, 3, 2, 1, 2, 1, 5, 5, 5, 5}, // Scroll Pane
 
-            {0, 3, 1, 1, 1, 1, 5, 5, 5, 5}, // label descricao
-            {1, 3, 1, 1, 1, 1, 5, 5, 5, 5}, // input descricao
+            {0, 4, 2, 1, 2, 1, 5, 5, 5, 5}, // Total Preço
+            {0, 5, 2, 1, 2, 1, 5, 5, 5, 5}, // Total Preço Desconto VIP
 
-            {0, 4, 1, 1, 1, 1, 5, 5, 5, 5}, // label nome fornecedor
-            {1, 4, 1, 1, 1, 1, 5, 5, 5, 5}, // input nome fornecedor
-
-            {0, 5, 1, 1, 1, 1, 5, 5, 5, 5}, // label preco
-            {1, 5, 1, 1, 1, 1, 5, 5, 5, 5}, // input preco
-
-            {0, 6, 1, 1, 1, 1, 5, 5, 5, 5}, // label quantidade
-            {1, 6, 1, 1, 1, 1, 5, 5, 5, 5}, // input quantidade
-
-            {0, 7, 1, 1, 1, 1, 5, 5, 5, 5}, // label desconto vip
-            {1, 7, 1, 1, 1, 1, 5, 5, 5, 5}, // input desconto vip
-
-            {0, 8, 1, 1, 1, 1, 5, 5, 5, 5}, // label status 
-            {1, 8, 1, 1, 1, 1, 5, 5, 5, 5}, // checkbox status
-
-            {0, 9, 1, 1, 1, 1, 5, 5, 5, 5}, // botão cancelar
-            {1, 9, 1, 1, 1, 1, 5, 5, 5, 5}, // botão editar
+            {0, 6, 1, 1, 1, 1, 5, 5, 5, 5}, // Botão Cancelar
+            {1, 6, 1, 1, 1, 1, 5, 5, 5, 5}, // Botão Comprar
         };
 
         // Configurand modelo de exibição
-        for(int i = 0; i < 19; i++){ // Menor que 15 pois 15 é a quantidade de item da janela
+        for(int i = 0; i < 8; i++){ // Menor que 8 pois 8 é a quantidade de item da janela
             elemento.gridx = posicaoComponentes[i][0];
             elemento.gridy = posicaoComponentes[i][1];
             elemento.gridwidth = posicaoComponentes[i][2];
@@ -210,46 +161,43 @@ public class JanelaConfirmarCompra extends JDialog {
             elemento.weighty = posicaoComponentes[i][5];
             elemento.insets = new Insets(posicaoComponentes[i][6], posicaoComponentes[i][7], posicaoComponentes[i][8], posicaoComponentes[i][9]);
 
-            telaCadastrar.add(componentes.get(posicaoNoArray[i]), elemento);
+            telaComprar.add(componentes.get(posicaoNoArray[i]), elemento);
         }
 
         //---=| Tratamento de Evento |=---//
         // Botão editar
-        buttonEditar.addActionListener(e ->{
-            estoquesControl = new EstoquesControl(estoques, tableModel, table);
+        buttonComprar.addActionListener(e ->{
+            try{
+                estoquesControl = new EstoquesControl(estoqueProdutos, tableModel, table);
+                EstoquesDAO estoquesDAO = new EstoquesDAO();
+    
+                for (Estoque produto : produtosCompra) {
+                    Integer quantidadeSobrouEstoque;
+                    quantidadeSobrouEstoque = Integer.valueOf(estoquesDAO.read(produto.getCodigoProduto()).getQuantidadeProduto() - Integer.valueOf(produto.getQuantidadeProduto()));
 
-            if(estoquesControl.checkEstoqueCampos(linhaSelecionada, "atualizar", codigoInput.getText(), nomeProdutoInput.getText(), descricaoInput.getText(), nomeFornecedorInput.getText(), precoInput.getText(), quantidadeInput.getText(), descontoVipInput.getText(), statusCheckBox.isSelected())){
-                // "Resetando" campos
-                codigoInput.setText("");
-                nomeProdutoInput.setText("");
-                descricaoInput.setText("");
-                nomeFornecedorInput.setText("");
-                precoInput.setText("");
-                quantidadeInput.setText("");
-                descontoVipInput.setText("");
-                statusCheckBox.setSelected(false);
+                    Boolean statusProduto;
+                    if(quantidadeSobrouEstoque > 0){
+                        statusProduto = true;
+                    } else{
+                        statusProduto = false;
+                    }
+    
+                    estoquesControl.checkEstoqueCampos(-1, "venda", produto.getCodigoProduto(), produto.getNomeProduto(), produto.getDescricaoProduto(), produto.getNomeFornecedor(), String.valueOf(produto.getPrecoProduto()), String.valueOf(quantidadeSobrouEstoque), String.valueOf(produto.getDescontoVip()), statusProduto);
+                }
     
                 dispose(); // Fecha a janela
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Erro: "+ ex);
             }
         });
         // Botão cancelar
         buttonCancelar.addActionListener(e -> {
             int resposta = JOptionPane.showConfirmDialog(null, "Cancelar Edição?", "Confirmação", JOptionPane.YES_NO_OPTION);
             if(resposta == JOptionPane.YES_OPTION){
-                // "Resetando" campos
-                codigoInput.setText("");
-                nomeProdutoInput.setText("");
-                descricaoInput.setText("");
-                nomeFornecedorInput.setText("");
-                precoInput.setText("");
-                quantidadeInput.setText("");
-                descontoVipInput.setText("");
-                statusCheckBox.setSelected(false);
-    
                 dispose(); // Fecha a janela
             }
         });
 
-        return telaCadastrar;
+        return telaComprar;
     }
 }

@@ -187,7 +187,7 @@ public class PainelEstoque extends JPanel {
                         linha[1] = estoqueProdutos.get(i).getNomeProduto();
                         linha[2] = estoqueProdutos.get(i).getDescricaoProduto();
                         linha[3] = estoqueProdutos.get(i).getNomeFornecedor();
-                        linha[4] = estoqueProdutos.get(i).getPrecoProduto();
+                        linha[4] = String.format("%,.2f", estoqueProdutos.get(i).getPrecoProduto()).replaceAll("[.]", "").replace(",", ".");
                         linha[5] = estoqueProdutos.get(i).getQuantidadeProduto();
                         linha[6] = estoqueProdutos.get(i).getDescontoVip();
                         linha[7] = "ativo";
