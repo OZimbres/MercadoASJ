@@ -550,30 +550,32 @@ public class PainelVenda extends JPanel {
     }
     private void btnConcluirCompraResumida(java.awt.event.ActionEvent evt){
         if(checarQuantidadeVendaEstoque()){
-            // Padrão Regex para pedar o código do prodyuto selecionado
-            Pattern pattern = Pattern.compile("CPF: (-?\\d+)\\s*\\|");
-            // Criando um Matcher que corresponde ao padrão na entrada
-            Matcher matcher = pattern.matcher(labelClienteInfo.getText());
-            if(matcher.find()){
-                // Abrindo janela
-                JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(estoqueProdutos, tableModelFull, tableFull, labelClienteInfo.getText(), labelTotalCompraResumida.getText(), produtosCompra);
-                janelaConfirmarCompra.setVisible(true);
-            } else {
-                // Abrindo janela
-                JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(estoqueProdutos, tableModelFull, tableFull, "", labelTotalCompraResumida.getText(), produtosCompra);
-                janelaConfirmarCompra.setVisible(true);
-            }
+            // Checar pra ver se a lista não está vazia
+            if(produtosCompra.size() > 0){
+                // Padrão Regex para pedar o cpf do cliente selecionado
+                Pattern pattern = Pattern.compile("CPF: (-?\\d+)\\s*\\|");
+                // Criando um Matcher que corresponde ao padrão na entrada
+                Matcher matcher = pattern.matcher(labelClienteInfo.getText());
+                if(matcher.find()){
+                    // Abrindo janela
+                    JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(estoqueProdutos, tableModelFull, tableFull, labelClienteInfo.getText(), jLabelPrecoCompraResumida.getText(), produtosCompra);
+                    janelaConfirmarCompra.setVisible(true);
+                } else {
+                    // Abrindo janela
+                    JanelaConfirmarCompra janelaConfirmarCompra = new JanelaConfirmarCompra(estoqueProdutos, tableModelFull, tableFull, "", jLabelPrecoCompraResumida.getText(), produtosCompra);
+                    janelaConfirmarCompra.setVisible(true);
+                }
 
-    
-            // "Resentando"
-            inputCpfCliente.setText("");
-            labelClienteInfo.setText("Nome:");
-            produtosCompra = null;
-            produtosCompra = new java.util.ArrayList<Estoque>();
-            estoqueControl = null;
-            jLabelPrecoCompraResumida.setText("0.00");
-            atualizarEstoque();
-            atualizarCompra();
+                // "Resentando"
+                inputCpfCliente.setText("");
+                labelClienteInfo.setText("Nome:");
+                produtosCompra = null;
+                produtosCompra = new java.util.ArrayList<Estoque>();
+                estoqueControl = null;
+                jLabelPrecoCompraResumida.setText("0.00");
+                atualizarEstoque();
+                atualizarCompra();
+            }    
         } else{
             JOptionPane.showMessageDialog(null, "Quantia extrapola estoque!");
         }

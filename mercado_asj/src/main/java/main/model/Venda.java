@@ -6,7 +6,7 @@ public class Venda {
     //-----===| ATRIBUTOS |===-----//
     private Integer idVenda;
     private Long cpfClienteVenda;
-    private Short codigoProdutoVenda;
+    private String codigoProdutoVenda;
     private Integer quantidadeProdutoVenda;
     private Double precoVenda;
     private String metodoPagamento;
@@ -15,8 +15,7 @@ public class Venda {
     //-----===| CONSTRUTOR |===-----//
     public Venda() {}
 
-    public Venda(Integer idVenda, Long cpfClienteVenda, Short codigoProdutoVenda, Integer quantidadeProdutoVenda,
-            Double precoVenda, String metodoPagamento, Date dataVenda) {
+    public Venda(Integer idVenda, Long cpfClienteVenda, String codigoProdutoVenda, Integer quantidadeProdutoVenda, Double precoVenda, String metodoPagamento, Date dataVenda) {
         this.idVenda = idVenda;
         this.cpfClienteVenda = cpfClienteVenda;
         this.codigoProdutoVenda = codigoProdutoVenda;
@@ -41,10 +40,10 @@ public class Venda {
         this.cpfClienteVenda = cpfClienteVenda;
     }
 
-    public Short getCodigoProdutoVenda() {
+    public String getCodigoProdutoVenda() {
         return codigoProdutoVenda;
     }
-    public void setCodigoProdutoVenda(Short codigoProdutoVenda) {
+    public void setCodigoProdutoVenda(String codigoProdutoVenda) {
         this.codigoProdutoVenda = codigoProdutoVenda;
     }
 

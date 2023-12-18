@@ -7,6 +7,8 @@ import java.awt.Insets;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -155,7 +157,17 @@ public class JanelaConfirmarCompra extends JFrame {
 
         jLabelTotalDepois.setFont(new java.awt.Font("Liberation Mono", 1, 24)); // NOI18N
         jLabelTotalDepois.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTotalDepois.setText("0.0");
+        // Display do preço vai depender se o Cliente comprando é VIP ou não
+        // Padrão Regex para pedar o cpf do VIP selecionado
+        Pattern pattern = Pattern.compile("CPF: (-?\\d+)\\s*\\|");
+        // Criando um Matcher que corresponde ao padrão na entrada
+        Matcher matcher = pattern.matcher(jLabelClienteVipInfo.getText());
+        if(matcher.find()){
+            jLabelTotalAntes.setText("Total de "+precoTotalSemDesconto+" por:");
+            jLabelTotalDepois.setText(String.format("%,.2f", compraComDesconto(produtosCompra)));
+        } else {
+            jLabelTotalDepois.setText(precoTotalSemDesconto);
+        }
 
         javax.swing.GroupLayout jPanelTotalLayout = new javax.swing.GroupLayout(jPanelTotal);
         jPanelTotal.setLayout(jPanelTotalLayout);
@@ -252,5 +264,14 @@ public class JanelaConfirmarCompra extends JFrame {
                 tableModel.addRow(linha);
             }
         }
+    }
+    private double compraComDesconto(List<main.model.Estoque> produtosCompra){
+        Double precoTotalComDesconto = 0.0;
+        if(produtosCompra != null){
+            for(int i = 0; i < produtosCompra.size(); i++){
+                precoTotalComDesconto += produtosCompra.get(i).getPrecoProduto() * (1 - (produtosCompra.get(i).getDescontoVip() / 100));
+            }
+        }
+        return precoTotalComDesconto;
     }
 }
