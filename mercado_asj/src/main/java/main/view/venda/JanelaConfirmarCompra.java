@@ -105,7 +105,7 @@ public class JanelaConfirmarCompra extends JFrame {
         );
 
         jScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tableModel = new DefaultTableModel(new Object[][] {}, new String[] {"COD","Produto"});
+        tableModel = new DefaultTableModel(new Object[][] {}, new String[] {"Produto", "QTD", "P.U.", "P.Final"});
         table = new JTable(tableModel);
         jScrollPane.setViewportView(table);
         atualizarCompra(tableModel, produtosCompra);
@@ -255,13 +255,14 @@ public class JanelaConfirmarCompra extends JFrame {
 
         if(produtosCompra != null){
             for(int i = 0; i < produtosCompra.size(); i++){
-                linha[0] = produtosCompra.get(i).getCodigoProduto();
-                linha[1] = produtosCompra.get(i).getNomeProduto();
-                linha[2] = produtosCompra.get(i).getDescricaoProduto();
-                linha[3] = String.format("%,.2f", produtosCompra.get(i).getPrecoProduto()).replaceAll("[.]", "").replace(",", ".");
-                linha[4] = produtosCompra.get(i).getDescontoVip();
-                linha[5] = produtosCompra.get(i).getQuantidadeProduto();
+                linha[0] = produtosCompra.get(i).getNomeProduto();
+                linha[1] = produtosCompra.get(i).getQuantidadeProduto();
+                linha[2] = String.format("%,.2f", produtosCompra.get(i).getPrecoProduto()).replaceAll("[.]", "").replace(",", ".");
+                // Preço final vai variar dependendo se pegar cliente VIP ou não
+                linha[3] = String.format("%,.2f", produtosCompra.get(i).getPrecoProduto() * (1 - (produtosCompra.get(i).getDescontoVip() / 100))).replaceAll("[.]", "").replace(",", ".");
                 tableModel.addRow(linha);
+
+
             }
         }
     }
