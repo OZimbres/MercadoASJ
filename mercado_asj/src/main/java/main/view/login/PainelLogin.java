@@ -119,7 +119,7 @@ public class PainelLogin extends JFrame {
         botaoAcessar.addActionListener(e -> { // Listener do botão
             try {
                 if(loginControl.checkLogin(cpfInput.getText(), senhaInput.getText())){
-                    Login logado = new Login(Long.valueOf(cpfInput.getText()), loginControl.verifyLogin(Long.valueOf(cpfInput.getText()), senhaInput.getText())); // Instanciando objeto pra passar pelas classes
+                    Login logado = new Login(Long.valueOf(cpfInput.getText().trim()), loginControl.verifyLogin(Long.valueOf(cpfInput.getText()), senhaInput.getText())); // Instanciando objeto pra passar pelas classes
 
                     dispose();
                     new FrameApp(logado);
